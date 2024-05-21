@@ -1,0 +1,283 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+$text-color: black;
+//$background-image: './client/src/images/UkraineMapScreen.png';
+.text-primary {
+    color: $text-color !important;
+}
+
+.btn-outline-primary {
+    --bs-btn-border-color: #4B65B4;
+    --bs-btn-color: #4B65B4;
+    --bs-btn-hover-bg: #4B65B4;
+    --bs-btn-hover-border-color: #4B65B4;
+}
+
+.btn-primary {
+    --bs-btn-bg: #4B65B4;
+    --bs-btn-border-color: #4B65B4;
+    --bs-btn-hover-bg: #2a375f;
+    --bs-btn-hover-border-color: #2a375f;
+}
+
+.btn:disabled {
+    background-color: #4B65B4;
+    border-color: #4B65B4;
+}
+
+.my-dropdown-toggle > .dropdown-toggle::after {
+    display:none;
+}
+
+.mapboxgl-canvas-container.mapboxgl-interactive {
+    //height: 400px;
+    height: calc(100vh - 60px);
+    position: relative;
+    cursor: default;
+}
+
+.map-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.sidebar {
+    background-color: rgb(35 55 75 / 90%);
+    color: #fff;
+    padding: 6px 12px;
+    font-family: monospace;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 12px;
+    border-radius: 4px;
+}
+  
+.popover {
+    max-width: 650px; /* задайте ширину відповідно до вашого бажання */
+    background-color: rgba(158, 158, 158, 0.341);;
+    padding: 5px;
+
+}
+
+.popover-body {
+    max-height: 400px; /* задайте висоту відповідно до вашого бажання */
+    overflow-y: auto; /* дозволяє прокручувати вміст, якщо він перевищує встановлену висоту */
+    
+}
+
+// .datepicker-l {
+//     max-width: 203.4px;
+// }
+
+// .datepicker-r {
+//     margin-left: 24px;
+//     max-width: 203.4px;
+// }
+
+.page-content {
+    padding-top: 60px; /* Це значення повинно бути рівним висоті вашого navbar */
+  }
+
+.hashtag {
+    color: rgba(202, 4, 4, 0.755);
+}
+
+
+
+// .group-marker {
+//         background-color: rgba(202, 4, 4, 0.5); // Напівпрозорий колір
+//         border-radius: 50%;
+//         cursor: pointer;
+//         transform: translate(-50%, -50%);
+//         position: absolute;
+//         text-align: center;
+//         align-items: center;
+//     }
+
+//     .cluster-marker {
+//         background-color: rgba(202, 4, 4, 0.5); /* Півпрозорий колір */
+//         border-radius: 50%; /* Круглий колір */
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         cursor: pointer; /* Зміна курсора на вказівник */
+//         color: #fff; /* Колір тексту у колі */
+//         font-weight: bold; /* Жирний текст */
+//         font-size: 14px; /* Розмір тексту */
+//     }
+    
+//     /* Стилізація одиночного маркера */
+//     .single-marker {
+//         width: 10px; /* Ширина вказівника */
+//         height: 10px; /* Висота вказівника */
+//         background-color: rgba(202, 4, 4, 0.621); /* Колір вказівника */
+//         border-radius: 50%; /* Кругла форма */
+//         cursor: pointer; /* Зміна курсора на вказівник */
+//     }
+
+    .single-marker {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(202, 4, 4, 0.621);
+    }
+    
+    .cluster-marker {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(202, 4, 4);
+        border-radius: 50%;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    
+    .cluster-marker:hover {
+        transform: scale(1.2); /* Опціональна збільшення маркеру при наведенні */
+    }
+
+    .selected-category {
+        background-color: #4b65b471;
+    }
+
+    .selected-category:hover {
+        background-color: #4b65b4b4;
+    }
+
+    .selected-category:active {
+        background-color: #3f65d8de;
+    }
+
+    .dropdown-custom:active {
+        background-color: #3f65d8de;
+    }
+
+    .btn-primary.show {
+        background-color: #4B65B4;
+        border-color: #4B65B4;
+    }
+
+    .filter-popover {
+        max-width: 300px;
+        padding: 8px;
+        bottom: 70px !important;
+        left: 10px !important;
+        position: none !important;
+        transform: none !important;
+        z-index: 9;
+    }
+    
+    .filter-popover .form-control {
+        margin-bottom: 10px;
+    }
+    
+    .filter-popover .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .filter-popover .form-label {
+        font-weight: bold;
+    }
+    
+    .filter-popover .dropdown-toggle {
+        width: 100%;
+        text-align: left;
+    }
+    
+    .filter-popover .dropdown-menu {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    
+    .filter-popover .dropdown-item {
+        padding: 5px 10px;
+    }
+    
+    .filter-popover .dropdown-item:hover, .filter-popover .dropdown-item:focus {
+        background-color: #7b8bc2; /* Колір підсвічування при наведенні */
+        color: #fff; /* Колір тексту при наведенні */
+    }
+    
+    .filter-popover .selected-category {
+        background-color: #7b8bc2; /* Колір обраних категорій */
+        color: #fff; /* Колір тексту для обраних категорій */
+    }
+    
+    .filter-popover .selected-category:hover, .filter-popover .selected-category:focus {
+        background-color: #5e71a8; /* Колір підсвічування обраних категорій при наведенні */
+    }
+    
+    @media (max-width: 767px) {
+    .filter-popover {
+        width: 90%;
+        padding: 5px;
+        position: none !important;
+        transform: none !important;
+        bottom: 60px !important;
+        
+    }
+    // .datepicker-l {
+    //     width: 172.3px;
+    // }
+    // .datepicker-r {
+    //     margin-left: 24px;
+    //     width: 172.3px; /* Ширина для телефона */
+    // }
+    
+}
+
+.chart-content{
+    margin-top: 140px !important;
+}
+
+.alert-wrapper {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000; /* Повинен бути вище, ніж z-index вашого контенту */
+    transition: opacity 0.5s ease;
+}   
+
+.alert {
+    padding: 10px;
+    padding-bottom: 0px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    line-height: 0.8;
+    transition: opacity 0.8s ease; /* Додаємо анімацію для самого Alert */
+    box-shadow: 0px 0px 10px 5px rgba(255, 0, 0, 0.4);
+}
+
+.hth-h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .hth-card {
+    transition: transform 0.2s;
+  }
+  
+  .hth-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-link {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+  
+  .fas {
+    color: #007bff;
+  }
