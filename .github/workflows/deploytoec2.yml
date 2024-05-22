@@ -61,8 +61,17 @@ jobs:
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_KEY }}
         script: |
+          echo "Creating .env file"
+          echo MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }} >> .env
+          echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .env
+          echo TG_TOKEN=${{ secrets.TG_TOKEN }} >> .env
           docker pull ${{ secrets.DOCKER_USERNAME }}/client:latest
           docker pull ${{ secrets.DOCKER_USERNAME }}/server:latest
           docker pull ${{ secrets.DOCKER_USERNAME }}/tg-bot:latest
+          cd diploma-project/
           docker-compose down
-          docker-compose up -d
+          docker-compose --env-file .env up -d
+      env:
+        MONGODB_TOKEN: ${{ secrets.MONGODB_TOKEN }}
+        SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+        TG_TOKEN: ${{ secrets.TG_TOKEN }}
