@@ -13,7 +13,10 @@ RUN npm install
 # Копіюємо решту файлів
 COPY . .
 
-# Виставляємо змінні середовища
+# Визначаємо аргумент збірки
+ARG MONGODB_TOKEN
+
+# Виставляємо змінну середовища
 ENV MONGODB_TOKEN=${MONGODB_TOKEN}
 ENV TG_TOKEN=${TG_TOKEN}
 
