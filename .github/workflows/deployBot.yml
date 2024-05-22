@@ -28,7 +28,7 @@ jobs:
       run: |
         cd tg-bot
         ls
-        docker build -t my-telegram-bot .
+        docker build --build-arg MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }} -t my-telegram-bot .
         docker tag my-telegram-bot:latest ${{ secrets.DOCKER_USERNAME }}/my-telegram-bot:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/my-telegram-bot:latest
 
@@ -51,4 +51,3 @@ jobs:
         
         # Видаляємо файл з SSH ключем
         rm ec2_key.pem
-
