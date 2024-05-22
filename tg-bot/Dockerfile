@@ -20,6 +20,10 @@ ARG TG_TOKEN
 ENV MONGODB_TOKEN=${MONGODB_TOKEN}
 ENV TG_TOKEN=${TG_TOKEN}
 
+# Створюємо .env файл з токенами
+RUN echo "MONGODB_TOKEN=${MONGODB_TOKEN}" > .env && \
+    echo "TG_TOKEN=${TG_TOKEN}" >> .env
+
 # Додаємо перевірку наявності файлів
 RUN test -f bot.js && echo "bot.js exists" || (echo "bot.js is missing" && exit 1)
 
