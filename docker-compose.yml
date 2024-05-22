@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   client:
-    image: your-dockerhub-username/client:latest
+    image: rumppel/client:latest
     container_name: client
     ports:
       - "80:80"
@@ -10,7 +10,7 @@ services:
       - server
 
   server:
-    image: your-dockerhub-username/server:latest
+    image: rumppel/server:latest
     container_name: server
     environment:
       MONGODB_TOKEN: ${MONGODB_TOKEN}
@@ -19,7 +19,7 @@ services:
       - "3001:3001"
 
   tg-bot:
-    image: your-dockerhub-username/tg-bot:latest
+    image: rumppel/tg-bot:latest
     container_name: tg-bot
     environment:
       MONGODB_TOKEN: ${MONGODB_TOKEN}
