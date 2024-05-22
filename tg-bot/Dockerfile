@@ -17,6 +17,12 @@ COPY . .
 ENV MONGODB_TOKEN=${MONGODB_TOKEN}
 ENV TG_TOKEN=${TG_TOKEN}
 
+# Додаємо перевірку наявності файлів
+RUN test -f bot.js && echo "bot.js exists" || (echo "bot.js is missing" && exit 1)
+
+# Перевірка наявності токену MONGODB_TOKEN
+RUN test -n "$MONGODB_TOKEN" && echo "MONGODB_TOKEN is set" || (echo "MONGODB_TOKEN is missing" && exit 1)
+
 # Відкриваємо порт
 EXPOSE 8000
 
