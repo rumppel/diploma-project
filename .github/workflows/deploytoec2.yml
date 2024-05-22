@@ -64,5 +64,6 @@ jobs:
           docker pull ${{ secrets.DOCKER_USERNAME }}/client:latest
           docker pull ${{ secrets.DOCKER_USERNAME }}/server:latest
           docker pull ${{ secrets.DOCKER_USERNAME }}/tg-bot:latest
+          cd diploma-project/
           docker-compose down
           docker-compose up -d
