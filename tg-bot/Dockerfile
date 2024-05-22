@@ -32,6 +32,9 @@ RUN test -n "$MONGODB_TOKEN" && echo "MONGODB_TOKEN is set" || (echo "MONGODB_TO
 # Перевірка наявності токену MONGODB_TOKEN
 RUN test -n "$TG_TOKEN" && echo "TG_TOKEN is set" || (echo "TG_TOKEN is missing" && exit 1)
 
+# Додаємо вивід змісту файлу .env
+RUN cat .env
+
 # Додаємо вивід змісту поточної директорії
 RUN ls -la
 
