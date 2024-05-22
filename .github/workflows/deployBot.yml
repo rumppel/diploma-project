@@ -43,10 +43,12 @@ jobs:
         
         # Підключаємося до EC2 та запускаємо Docker контейнер
         ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          echo "MONGODB_TOKEN=${MONGODB_TOKEN}" > .env
+          echo "TG_TOKEN=${TG_TOKEN}" >> .env
           docker pull ${{ secrets.DOCKER_USERNAME }}/my-telegram-bot:latest
           docker stop my-telegram-bot || true
           docker rm my-telegram-bot || true
-          docker run -d --name my-telegram-bot --env MONGODB_TOKEN=$MONGODB_TOKEN --env TG_TOKEN=$TG_TOKEN ${{ secrets.DOCKER_USERNAME }}/my-telegram-bot:latest
+          docker run -d --name my-telegram-bot --env-file .env ${{ secrets.DOCKER_USERNAME }}/my-telegram-bot:latest
         EOF
         
         # Видаляємо файл з SSH ключем
