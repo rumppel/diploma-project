@@ -1,0 +1,38 @@
+name: Create .env files in multiple directories
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  create-env-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create .env file in client
+        run: |
+          mkdir -p client
+          echo "VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}" >> client/.env
+
+      - name: Create .env file in server
+        run: |
+          mkdir -p server
+          echo "MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}" >> server/.env
+          echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" >> server/.env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> server/.env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> server/.env
+          echo "S3_REGION=${{ secrets.S3_REGION }}" >> server/.env
+          echo "S3_BUCKET=${{ secrets.S3_BUCKET }}" >> server/.env
+
+      - name: Create .env file in tg-bot
+        run: |
+          mkdir -p tg-bot
+          echo "MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}" >> tg-bot/.env
+          echo "TG_TOKEN=${{ secrets.TG_TOKEN }}" >> tg-bot/.env
