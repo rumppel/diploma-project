@@ -13,8 +13,8 @@ services:
     image: rumppel/server:latest
     container_name: server
     environment:
-      MONGODB_TOKEN: ${MONGODB_TOKEN}
-      SESSION_SECRET: ${SESSION_SECRET}
+      MONGODB_TOKEN: ${secrets.MONGODB_TOKEN}
+      SESSION_SECRET: ${secrets.SESSION_SECRET}
     ports:
       - "3001:3001"
 
@@ -22,7 +22,7 @@ services:
     image: rumppel/tg-bot:latest
     container_name: tg-bot
     environment:
-      MONGODB_TOKEN: ${MONGODB_TOKEN}
-      TG_TOKEN: ${TG_TOKEN}
+      MONGODB_TOKEN: ${secrets.MONGODB_TOKEN}
+      TG_TOKEN: ${secrets.TG_TOKEN}
     ports:
       - "8000:8000"
