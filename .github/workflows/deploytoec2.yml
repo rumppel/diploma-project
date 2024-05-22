@@ -70,4 +70,4 @@ jobs:
           docker pull ${{ secrets.DOCKER_USERNAME }}/tg-bot:latest
           cd diploma-project/
           docker-compose down
-          docker-compose up -d
+          docker-compose --env-file .env up -d
