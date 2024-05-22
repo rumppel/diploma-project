@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  client:
+    image: your-dockerhub-username/client:latest
+    container_name: client
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+
+  server:
+    image: your-dockerhub-username/server:latest
+    container_name: server
+    environment:
+      MONGODB_TOKEN: ${MONGODB_TOKEN}
+      SESSION_SECRET: ${SESSION_SECRET}
+    ports:
+      - "3001:3001"
+
+  tg-bot:
+    image: your-dockerhub-username/tg-bot:latest
+    container_name: tg-bot
+    environment:
+      MONGODB_TOKEN: ${MONGODB_TOKEN}
+      TG_TOKEN: ${TG_TOKEN}
+    ports:
+      - "8000:8000"

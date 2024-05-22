@@ -6,8 +6,6 @@ const AuthUserModel = require('./models/AuthUser.models');
 const PointModel = require('./models/Point.models');
 const ImageModel = require('./models/ImageLink.models');
 require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
 
 const bcrypt = require('bcrypt');
 

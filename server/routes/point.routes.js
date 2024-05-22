@@ -2,14 +2,8 @@ const express = require('express');
 const router = express.Router();
 const PointModel = require('../models/Point.models');
 const multer = require('multer');
-//const upload = require('../server');
-const storageGFS = require('../server');
-// Ініціалізація multer з налаштуваннями збереження у GridFS
-//const upload = multer({ storageGFS });
 const ImageModel = require('../models/ImageLink.models');
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
-const GridFsStorage = require('multer-gridfs-storage');
-const parsefile = require('./fileparser.routes');
 const { ObjectId } = require('mongoose').Types;
   
 

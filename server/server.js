@@ -7,15 +7,8 @@ const RouterAdditional = require("./routes/additional.routes.js")
 const RouterUser = require("./routes/user.routes.js")
 const RouterPoint = require("./routes/point.routes.js")
 const RouterSchedule = require("./routes/scheduler.routes.js")
-const RouterProxy = require("./routes/proxy.routes.js")
 
-const FileParser = require("./routes/fileparser.routes.js")
 const cookieParser = require("cookie-parser");
-const mapboxSdk = require('@mapbox/mapbox-sdk/services/geocoding');
-const multer = require('multer');
-const {GridFsStorage} = require('multer-gridfs-storage');
-const Grid = require('gridfs-stream');
-const cron = require('node-cron');
 const Dotenv = require('dotenv-webpack');
 require('dotenv').config();
 
@@ -73,30 +66,10 @@ db.once("open", function () {
 });
 
 
-//Налаштування збереження файлів у GridFS
-const storageGFS = new GridFsStorage({
-    db: db,
-    file: (req, file) => {
-      const filename = `${Date.now()}_${file.originalname}`;
-      console.log('IN STORAGE GFS', filename);
-      return {
-        filename: filename,
-        bucketName: 'images', // Ім'я бакету, куди зберігатимуться зображення
-      };
-    },
-  });
-  
-
-
-module.exports = storageGFS;
-
-
 app.use(RouterUser);
 app.use(RouterAdditional);
 app.use(RouterPoint);
 app.use(RouterSchedule);
-app.use(RouterProxy);
-app.use(FileParser);
 
 app.listen(3001, () => {
     console.log("Server listining on http://127.0.0.1:3001");

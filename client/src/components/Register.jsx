@@ -99,11 +99,6 @@ const Register = () => {
     }
     }
 
-    // const handleCityChange = (event) => {
-    //     setCity(event.target.value);
-    //     setShowDistrict(!!event.target.value); // Перевірка на пустий рядок
-    //   };
-
     return (
         <div>
             <AlertComponent errorMessages={errorMessages} />

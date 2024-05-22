@@ -9,7 +9,6 @@ import UkraineMap from './UkraineMap';
 import Statistics from './Statistics';
 import HowToHelp from './HowToHelp';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import { BrowserRouter as Router } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 function App() {

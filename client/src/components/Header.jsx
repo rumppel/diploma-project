@@ -1,11 +1,9 @@
 import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-//import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [userData, setUser] = useState(null);
-    //const navigate = useNavigate();
     useEffect(() => {
         if (!userData) {
         axios.get('http://localhost:3001/getsession', { withCredentials: true })

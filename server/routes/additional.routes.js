@@ -85,21 +85,4 @@ router.get('/neighborhood', (req, res) => {
     });
 });
 
-// router.get('/create-sessionn', (req, res) => {
-//     req.session.user = {
-//       id: '12345',
-//       username: 'exampleUser',
-//       role: 'user',
-//       isLoggedIn: true
-//     };
-  
-//     // Save the session to the server
-//     console.log('Saving sessionnnnnnnnnnnnnnnnnnnn');
-//     req.session.save();
-//     res.cookie('username', req.session.user.username, { maxAge: 3600000, httpOnly: true });
-//     // Send a JSON response back to the client
-//     res.json({ message: 'Session created successfully', user: req.session.user});
-//   });
-
-
 module.exports = router;
