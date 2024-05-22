@@ -28,7 +28,7 @@ jobs:
       run: |
         cd tg-bot
         ls
-        docker build --build-arg MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }} TG_TOKEN=${{ secrets.TG_TOKEN }} -t my-telegram-bot .
+        docker build --build-arg MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }} --build-arg TG_TOKEN=${{ secrets.TG_TOKEN }} -t my-telegram-bot .
         docker tag my-telegram-bot:latest ${{ secrets.DOCKER_USERNAME }}/my-telegram-bot:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/my-telegram-bot:latest
 
