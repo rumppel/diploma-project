@@ -10,12 +10,12 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - MONGODB_TOKEN=${MONGODB_TOKEN}
-      - SESSION_SECRET=${SESSION_SECRET}
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - S3_REGION=${S3_REGION}
-      - S3_BUCKET=${S3_BUCKET}
+      - MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}
+      - SESSION_SECRET=${{ secrets.SESSION_SECRET }}
+      - AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+      - AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - S3_REGION=${{ secrets.S3_REGION }}
+      - S3_BUCKET=${{ secrets.S3_BUCKET }}
   
   client:
     build:
@@ -24,4 +24,4 @@ services:
     ports:
       - "80:80"
     environment:
-      - VITE_MAPBOX_TOKEN=${VITE_MAPBOX_TOKEN}
+      - VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}
