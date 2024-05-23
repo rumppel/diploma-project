@@ -36,23 +36,23 @@ jobs:
         
         # Підключаємося до EC2 та запускаємо Docker контейнер
         ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-          echo "MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}" > .env
-          echo "TG_TOKEN=${{ secrets.TG_TOKEN }}" >> .env
-          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" > .env
-          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
-          echo "S3_BUCKET=${{ secrets.S3_BUCKET }}" > .env
-          echo "S3_REGION=${{ secrets.S3_REGION }}" >> .env
-          echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" > .env
-          echo "VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}" >> .env
+          echo "MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}" > diploma-project/server/.env
+          echo "TG_TOKEN=${{ secrets.TG_TOKEN }}" >> diploma-project/server/.env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" > diploma-project/server/.env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> diploma-project/server/.env
+          echo "S3_BUCKET=${{ secrets.S3_BUCKET }}" > diploma-project/server/.env
+          echo "S3_REGION=${{ secrets.S3_REGION }}" >> diploma-project/server/.env
+          echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" > diploma-project/server/.env
+          echo "VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}" >> diploma-project/client/.env
           ls -la
-          cat .env
+          cat diploma-project/client/.env
           docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
           docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
           docker stop diploma-project_server || true
           docker stop diploma-project_client || true
           docker rm diploma-project_server || true
           docker rm diploma-project_client || true
-          docker-compose -f docker-compose.yml up -d
+          docker-compose -f diploma-project/docker-compose.yml up -d
         EOF
         
         # Видаляємо файл з SSH ключем
