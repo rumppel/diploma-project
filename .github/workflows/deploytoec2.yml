@@ -23,8 +23,7 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: |
-        cd ../
-        docker-compose -f diploma-project/docker-compose.yml build
+        docker-compose -f docker-compose.yml build
         docker tag diploma-project_server:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
         docker tag diploma-project_client:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
@@ -50,7 +49,7 @@ jobs:
           echo "VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}" >> diploma-project/client/.env
           ls -la
           cat diploma-project/client/.env
-          
+          cd diploma-project
           docker-compose down
           docker-compose pull
           docker-compose up -d
