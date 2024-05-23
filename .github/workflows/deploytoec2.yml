@@ -22,12 +22,12 @@ jobs:
     - name: Build and push Docker images
       run: |
         ls
-        # cd diploma-project
-        DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} docker-compose build
-        docker tag diploma-project_server:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
-        docker tag diploma-project_client:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
-        docker push ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
-        docker push ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
+        DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
+        docker-compose -f docker-compose.yml build
+        docker tag diploma-project_server:latest $DOCKER_USERNAME/diploma-project_server:latest
+        docker tag diploma-project_client:latest $DOCKER_USERNAME/diploma-project_client:latest
+        docker push $DOCKER_USERNAME/diploma-project_server:latest
+        docker push $DOCKER_USERNAME/diploma-project_client:latest
 
     - name: Deploy to EC2
       run: |
