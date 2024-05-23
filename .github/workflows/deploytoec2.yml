@@ -35,8 +35,10 @@ jobs:
         echo "${{ secrets.EC2_KEY }}" > ec2_key.pem
         chmod 600 ec2_key.pem
         
-        # Підключаємося до EC2 та запускаємо Docker контейнер
+        scp -o StrictHostKeyChecking=no -i ec2_key.pem docker-compose.yml ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:~/docker-compose.yml
+        
         ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          
           echo "MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}" > diploma-project/server/.env
           echo "TG_TOKEN=${{ secrets.TG_TOKEN }}" >> diploma-project/server/.env
           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" > diploma-project/server/.env
@@ -47,11 +49,10 @@ jobs:
           echo "VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}" >> diploma-project/client/.env
           ls -la
           cat diploma-project/client/.env
-          docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
-          docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
           
-          docker-compose -f diploma-project/docker-compose.yml down
-          docker-compose -f diploma-project/docker-compose.yml up -d
+          docker-compose down
+          docker-compose pull
+          docker-compose up -d
         EOF
         
         # Видаляємо файл з SSH ключем
