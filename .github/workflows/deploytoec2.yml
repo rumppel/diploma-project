@@ -48,8 +48,8 @@ jobs:
           echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" > ./server/.env
           echo "VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}" >> ./client/.env
           ls -la
-          cat diploma-project/client/.env
-          ls diploma-project/server
+          cat ./client/.env
+          ls ./server
           docker compose down
           docker compose pull
           docker compose up -d
