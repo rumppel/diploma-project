@@ -9,13 +9,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
-    environment:
-      - MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}
-      - SESSION_SECRET=${{ secrets.SESSION_SECRET }}
-      - AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-      - AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - S3_REGION=${{ secrets.S3_REGION }}
-      - S3_BUCKET=${{ secrets.S3_BUCKET }}
   
   client:
     build:
@@ -23,5 +16,3 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
-    environment:
-      - VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}
