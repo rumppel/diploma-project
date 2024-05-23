@@ -49,7 +49,7 @@ jobs:
           echo "VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}" >> ./client/.env
           ls -la
           cat ./client/.env
-          ls ./server
+          ls -la ./server
           docker compose down
           docker compose pull
           docker compose up -d
