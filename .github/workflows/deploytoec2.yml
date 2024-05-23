@@ -1,77 +1,59 @@
-name: Deploy to AWS EC2
+name: Deploy diploma-project to EC2
 
 on:
   push:
     branches:
-      - main  # або ваша основна гілка
+      - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
 
-    - name: Log in to Docker Hub
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Login to DockerHub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
     - name: Build and push Docker images
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/client:latest ./client
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/server:latest ./server
-        # docker build -t ${{ secrets.DOCKER_USERNAME }}/tg-bot:latest ./tg-bot
-        docker push ${{ secrets.DOCKER_USERNAME }}/client:latest
-        docker push ${{ secrets.DOCKER_USERNAME }}/server:latest
-        # docker push ${{ secrets.DOCKER_USERNAME }}/tg-bot:latest
+        cd diploma-project
+        docker-compose build
+        docker tag diploma-project_server:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
+        docker tag diploma-project_client:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
 
-    - name: Create .env file in client
+    - name: Deploy to EC2
       run: |
-        mkdir -p client
-        echo "VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}" >> client/.env
-
-    - name: Create .env file in server
-      run: |
-        mkdir -p server
-        echo "MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}" >> server/.env
-        echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" >> server/.env
-        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> server/.env
-        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> server/.env
-        echo "S3_REGION=${{ secrets.S3_REGION }}" >> server/.env
-        echo "S3_BUCKET=${{ secrets.S3_BUCKET }}" >> server/.env
-
-    - name: Create .env file in tg-bot
-      run: |
-        mkdir -p tg-bot
-        echo "MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}" >> tg-bot/.env
-        echo "TG_TOKEN=${{ secrets.TG_TOKEN }}" >> tg-bot/.env
-
-    - name: SSH to EC2 and deploy
-      uses: appleboy/ssh-action@v0.1.6
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.EC2_KEY }}
-        script: |
-          echo "Creating .env file"
-          echo MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }} >> .env
-          echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .env
-          echo TG_TOKEN=${{ secrets.TG_TOKEN }} >> .env
-          docker pull ${{ secrets.DOCKER_USERNAME }}/client:latest
-          docker pull ${{ secrets.DOCKER_USERNAME }}/server:latest
-          docker pull ${{ secrets.DOCKER_USERNAME }}/tg-bot:latest
-          cd diploma-project/
-          docker-compose down
-          docker-compose --env-file .env up -d
-      env:
-        MONGODB_TOKEN: ${{ secrets.MONGODB_TOKEN }}
-        SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
-        TG_TOKEN: ${{ secrets.TG_TOKEN }}
+        # Записуємо вміст SSH ключа у файл
+        echo "${{ secrets.EC2_KEY }}" > ec2_key.pem
+        chmod 600 ec2_key.pem
+        
+        # Підключаємося до EC2 та запускаємо Docker контейнер
+        ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          echo "MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}" > .env
+          echo "TG_TOKEN=${{ secrets.TG_TOKEN }}" >> .env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" > .env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+          echo "S3_BUCKET=${{ secrets.S3_BUCKET }}" > .env
+          echo "S3_REGION=${{ secrets.S3_REGION }}" >> .env
+          echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" > .env
+          echo "VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}" >> .env
+          ls -la
+          cat .env
+          docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
+          docker stop diploma-project_server || true
+          docker stop diploma-project_client || true
+          docker rm diploma-project_server || true
+          docker rm diploma-project_client || true
+          docker-compose -f /path/to/your/docker-compose.yml up -d
+        EOF
+        
+        # Видаляємо файл з SSH ключем
+        rm ec2_key.pem
