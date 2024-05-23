@@ -28,14 +28,11 @@ jobs:
       run: |
         cd tg-bot
         ls
-        docker build --build-arg MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }} --build-arg TG_TOKEN=${{ secrets.TG_TOKEN }} -t my-telegram-bot .
+        docker build -t my-telegram-bot .
         docker tag my-telegram-bot:latest ${{ secrets.DOCKER_USERNAME }}/my-telegram-bot:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/my-telegram-bot:latest
 
     - name: Deploy to EC2
-      env:
-        MONGODB_TOKEN: ${{ secrets.MONGODB_TOKEN }}
-        TG_TOKEN: ${{ secrets.TG_TOKEN }}
       run: |
         # Записуємо вміст SSH ключа у файл
         echo "${{ secrets.EC2_KEY }}" > ec2_key.pem
