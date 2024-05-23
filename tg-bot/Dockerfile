@@ -13,30 +13,30 @@ RUN npm install
 # Копіюємо решту файлів
 COPY . .
 
-# Визначаємо аргумент збірки
-ARG MONGODB_TOKEN
-ARG TG_TOKEN
-# Виставляємо змінну середовища
-ENV MONGODB_TOKEN=${MONGODB_TOKEN}
-ENV TG_TOKEN=${TG_TOKEN}
+# # Визначаємо аргумент збірки
+# ARG MONGODB_TOKEN
+# ARG TG_TOKEN
+# # Виставляємо змінну середовища
+# ENV MONGODB_TOKEN=${MONGODB_TOKEN}
+# ENV TG_TOKEN=${TG_TOKEN}
 
-# Створюємо .env файл з токенами
-RUN echo "MONGODB_TOKEN=${MONGODB_TOKEN}" > .env && \
-    echo "TG_TOKEN=${TG_TOKEN}" >> .env
+# # Створюємо .env файл з токенами
+# RUN echo "MONGODB_TOKEN=${MONGODB_TOKEN}" > .env && \
+#     echo "TG_TOKEN=${TG_TOKEN}" >> .env
 
-# Додаємо перевірку наявності файлів
-RUN test -f bot.js && echo "bot.js exists" || (echo "bot.js is missing" && exit 1)
+# # Додаємо перевірку наявності файлів
+# RUN test -f bot.js && echo "bot.js exists" || (echo "bot.js is missing" && exit 1)
 
-# Перевірка наявності токену MONGODB_TOKEN
-RUN test -n "$MONGODB_TOKEN" && echo "MONGODB_TOKEN is set" || (echo "MONGODB_TOKEN is missing" && exit 1)
-# Перевірка наявності токену MONGODB_TOKEN
-RUN test -n "$TG_TOKEN" && echo "TG_TOKEN is set" || (echo "TG_TOKEN is missing" && exit 1)
+# # Перевірка наявності токену MONGODB_TOKEN
+# RUN test -n "$MONGODB_TOKEN" && echo "MONGODB_TOKEN is set" || (echo "MONGODB_TOKEN is missing" && exit 1)
+# # Перевірка наявності токену MONGODB_TOKEN
+# RUN test -n "$TG_TOKEN" && echo "TG_TOKEN is set" || (echo "TG_TOKEN is missing" && exit 1)
 
-# Додаємо вивід змісту файлу .env
-RUN cat .env
+# # Додаємо вивід змісту файлу .env
+# RUN cat .env
 
-# Додаємо вивід змісту поточної директорії
-RUN ls -la
+# # Додаємо вивід змісту поточної директорії
+# RUN ls -la
 
 # Відкриваємо порт
 EXPOSE 8000
