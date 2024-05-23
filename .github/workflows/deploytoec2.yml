@@ -23,7 +23,7 @@ jobs:
       run: |
         ls
         # cd diploma-project
-        docker-compose build
+        DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} docker-compose build
         docker tag diploma-project_server:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
         docker tag diploma-project_client:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
