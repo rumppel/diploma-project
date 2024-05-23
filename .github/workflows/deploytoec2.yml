@@ -23,6 +23,7 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: |
+        cd ../
         docker-compose -f docker-compose.yml build
         docker tag diploma-project_server:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
         docker tag diploma-project_client:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
