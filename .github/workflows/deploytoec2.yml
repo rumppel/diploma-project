@@ -21,7 +21,7 @@ jobs:
 
     - name: Build and push Docker images
       run: |
-        cd diploma-project
+        # cd diploma-project
         docker-compose build
         docker tag diploma-project_server:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
         docker tag diploma-project_client:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
