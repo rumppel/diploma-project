@@ -22,7 +22,7 @@ jobs:
     - name: Build and push Docker images
       run: |
         # cd diploma-project
-        docker-compose build
+        docker compose build
         docker tag diploma-project_server:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
         docker tag diploma-project_client:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
@@ -49,8 +49,8 @@ jobs:
           docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
           docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
           
-          docker-compose -f diploma-project/docker-compose.yml down
-          docker-compose -f diploma-project/docker-compose.yml up -d
+          docker compose -f diploma-project/docker-compose.yml down
+          docker compose -f diploma-project/docker-compose.yml up -d
         EOF
         
         # Видаляємо файл з SSH ключем
