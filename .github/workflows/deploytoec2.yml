@@ -52,7 +52,7 @@ jobs:
           docker stop diploma-project_client || true
           docker rm diploma-project_server || true
           docker rm diploma-project_client || true
-          docker-compose -f /path/to/your/docker-compose.yml up -d
+          docker-compose -f docker-compose.yml up -d
         EOF
         
         # Видаляємо файл з SSH ключем
