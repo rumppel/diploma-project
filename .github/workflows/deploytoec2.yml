@@ -48,11 +48,9 @@ jobs:
           cat diploma-project/client/.env
           docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
           docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
-          docker stop diploma-project_server || true
-          docker stop diploma-project_client || true
-          docker rm diploma-project_server || true
-          docker rm diploma-project_client || true
-          docker-compose -f diploma-project/docker-compose.yml up -d
+          
+          docker-compose -f docker-compose.yml down
+          docker-compose -f docker-compose.yml up -d
         EOF
         
         # Видаляємо файл з SSH ключем
