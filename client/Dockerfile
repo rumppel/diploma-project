@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 80
 
 # Start the application
-CMD ["npm", "run", "dev", "--host", "http://client:5173"]
+CMD ["npm", "run", "dev", "--host"]
