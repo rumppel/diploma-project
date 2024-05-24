@@ -10,6 +10,8 @@ RUN npm install
 
 COPY . .
 
+# Expose port 80
 EXPOSE 80
 
-CMD ["npm", "run", "dev", "--", "--host"]
+# Start the application
+CMD ["npx", "serve", "-s", "build", "-l", "80"]
