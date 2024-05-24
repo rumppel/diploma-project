@@ -27,7 +27,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions ={
-    origin:'http://localhost:5173', 
+    origin:'0.0.0.0', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
@@ -71,7 +71,7 @@ app.use(RouterAdditional);
 app.use(RouterPoint);
 app.use(RouterSchedule);
 
-app.listen(3001, () => {
+app.listen(3000, '0.0.0.0', () => {
     console.log("Server listining on http://127.0.0.1:3001");
 
 });
