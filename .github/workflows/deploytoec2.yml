@@ -24,6 +24,8 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: |
         # docker compose -f docker-compose.yml build
+        ls
+        cd server
         docker build -t diploma-project_server .
         docker build -t diploma-project_client .
         docker tag diploma-project_server:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
@@ -52,7 +54,7 @@ jobs:
           echo "VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}" >> ./client/.env
           docker compose down
           docker compose pull
-          docker compose up --env-file ./client/.env --env-file ./server/.env -d
+          docker compose up -d
           
           ls -la
           cat ./client/.env
