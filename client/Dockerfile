@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 80
 
 # Start the application
-CMD ["npx", "serve", "-s", "build", "-l", "80"]
+CMD ["npm", "run", "dev"]
