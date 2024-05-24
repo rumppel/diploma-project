@@ -27,10 +27,12 @@ jobs:
         ls
         cd server
         docker build -t diploma-project_server .
-        docker build -t diploma-project_client .
         docker tag diploma-project_server:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
-        docker tag diploma-project_client:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/diploma-project_server:latest
+        cd ../
+        cd client
+        docker build -t diploma-project_client .
+        docker tag diploma-project_client:latest ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/diploma-project_client:latest
 
     - name: Deploy to EC2
