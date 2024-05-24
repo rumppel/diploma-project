@@ -43,6 +43,7 @@ jobs:
           docker compose down
           docker compose pull
           docker compose up -d
+          cd diploma-project
           echo "MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}" > ./server/.env
           echo "TG_TOKEN=${{ secrets.TG_TOKEN }}" >> ./server/.env
           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" > ./server/.env
