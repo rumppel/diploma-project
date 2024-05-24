@@ -48,7 +48,6 @@ bot.onText(/\/start (.+)/, async (msg, match) => {
           bot.sendMessage(chatId, 'User not found');
           return;
       }
-      bot.sendMessage(chatId, 'User found');
       const userInfo = {
           username: user.username,
           hashedPassword: user.hashedPassword,
