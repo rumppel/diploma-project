@@ -6,7 +6,7 @@ services:
   server:
     image: "diploma-project_server:latest"
     build:
-      context: ./diploma-project/server
+      context: ./server
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
@@ -16,7 +16,7 @@ services:
   client:
     image: "diploma-project_client:latest"
     build:
-      context: ./diploma-project/client
+      context: ./client
       dockerfile: Dockerfile
     ports:
       - "81:81"
