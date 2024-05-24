@@ -2,7 +2,7 @@ name: Deploy diploma-project to EC2
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
 
 jobs:
@@ -58,9 +58,10 @@ jobs:
           echo "S3_REGION=${{ secrets.S3_REGION }}" >> server/.env
           echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" >> server/.env
           echo "VITE_MAPBOX_TOKEN=${{ secrets.VITE_MAPBOX_TOKEN }}" >> client/.env
-          docker compose down
-          docker compose pull
-          docker compose up -d
+          docker-compose stop
+          docker-compose rm -f
+          docker-compose pull   
+          docker-compose up -d
           
           ls -la
           cat ./client/.env
