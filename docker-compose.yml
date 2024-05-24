@@ -10,8 +10,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
-    volumes:
-      - /.env:/.env
+    env_file:
+      - ./server/.env
   
   client:
     image: "diploma-project_client:latest"
@@ -22,3 +22,5 @@ services:
       - "81:81"
     volumes:
       - /client/.env:/.env
+    env_file:
+      - ./client/.env
