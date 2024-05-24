@@ -38,7 +38,11 @@ jobs:
         scp -o StrictHostKeyChecking=no -i ec2_key.pem docker-compose.yml ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:~/docker-compose.yml
         
         ssh -o StrictHostKeyChecking=no -i ec2_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-          cd diploma-project
+          # cd diploma-project
+          
+          docker compose down
+          docker compose pull
+          docker compose up -d
           echo "MONGODB_TOKEN=${{ secrets.MONGODB_TOKEN }}" > ./server/.env
           echo "TG_TOKEN=${{ secrets.TG_TOKEN }}" >> ./server/.env
           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" > ./server/.env
@@ -50,9 +54,6 @@ jobs:
           ls -la
           cat ./client/.env
           ls -la ./server
-          docker compose down
-          docker compose pull
-          docker compose up -d
         EOF
         
         # Видаляємо файл з SSH ключем
