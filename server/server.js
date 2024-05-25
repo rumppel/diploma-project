@@ -71,7 +71,7 @@ app.use(RouterAdditional);
 app.use(RouterPoint);
 app.use(RouterSchedule);
 
-app.listen(3001, '0.0.0.0', () => {
-    console.log("Server listining on http://0.0.0.0:3001");
+app.listen(3001, () => {
+    console.log("Server listining on port 3001");
 
 });
