@@ -104,7 +104,7 @@ const Register = () => {
         <div>
             <AlertComponent errorMessages={errorMessages} />
             <div className="d-flex justify-content-center align-items-center text-center vh-100 mt-3" style= {{}}>
-                <div className="bg-white p-3 mt-5" style={{width : '40%'}}>
+                <div className="bg-white p-3 mt-5 rounded col-10 col-sm-8 col-md-6 col-lg-4">
                     <h2 className='mt-5 mb-2 text-primary'>Sign up</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-2 text-start">
@@ -192,11 +192,11 @@ const Register = () => {
                             />
                         </div>
                         )}
-                        <button onClick={handleSubmit} type="button" className="btn btn-primary w-25">Sign Up</button>
+                        <button onClick={handleSubmit} type="button" className="btn btn-primary w-100">Sign Up</button>
                     </form>
 
                     <p className='container my-2'>Already have an account ?</p>
-                    <Link to='/login' className="btn btn-secondary w-25">Log In</Link>
+                    <Link to='/login' className="btn btn-secondary w-100">Log In</Link>
                 </div>
             </div>
         </div>

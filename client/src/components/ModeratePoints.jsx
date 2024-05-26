@@ -231,45 +231,45 @@ const ModeratePoints = () => {
                 </div>
             </Form.Group>
             <Form as={Row} className="justify-content-between mb-1">
-                <Form.Group as={Col} controlId="sortBy">
-                    <Form.Label>Sort By</Form.Label>
-                    <Form.Control as="select" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                        <option value="place_name">Placename</option>
-                        <option value="isPosted">Is Posted</option>
-                        <option value="scheduleType">Schedule type</option>
-                        <option value="createdBy">Created By</option>
-                        <option value="createdAt">Created At</option>
-                        <option value="updatedAt">Moderated At</option>
-                    </Form.Control>
-                </Form.Group>
+    <Form.Group as={Col} controlId="sortBy" xs={6} sm={6} md={3}>
+        <Form.Label>Sort By</Form.Label>
+        <Form.Control as="select" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+            <option value="place_name">Placename</option>
+            <option value="isPosted">Is Posted</option>
+            <option value="scheduleType">Schedule type</option>
+            <option value="createdBy">Created By</option>
+            <option value="createdAt">Created At</option>
+            <option value="updatedAt">Moderated At</option>
+        </Form.Control>
+    </Form.Group>
 
-                <Form.Group as={Col} controlId="sortOrder">
-                    <Form.Label>Sort Order</Form.Label>
-                    <Form.Control as="select" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-                        <option value="asc">Ascending</option>
-                        <option value="desc">Descending</option>
-                    </Form.Control>
-                </Form.Group>
+    <Form.Group as={Col} controlId="sortOrder" xs={6} sm={6} md={3}>
+        <Form.Label>Sort Order</Form.Label>
+        <Form.Control as="select" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </Form.Control>
+    </Form.Group>
 
-                <Form.Group as={Col} controlId="isPostedFilter">
-                    <Form.Label>Is Posted Filter</Form.Label>
-                    <Form.Control as="select" value={isPostedFilter} onChange={(e) => setIsPostedFilter(e.target.value)}>
-                        <option value="">All</option>
-                        <option value="true">True</option>
-                        <option value="false">False</option>
-                    </Form.Control>
-                </Form.Group>
+    <Form.Group as={Col} controlId="isPostedFilter" xs={6} sm={6} md={3}>
+        <Form.Label>Is Posted Filter</Form.Label>
+        <Form.Control as="select" value={isPostedFilter} onChange={(e) => setIsPostedFilter(e.target.value)}>
+            <option value="">All</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </Form.Control>
+    </Form.Group>
 
-                <Form.Group as={Col} controlId="scheduleTypeFilter">
-                    <Form.Label>Schedule Type Filter</Form.Label>
-                    <Form.Control as="select" value={scheduleTypeFilter} onChange={(e) => setScheduleTypeFilter(e.target.value)}>
-                        <option value="">All</option>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </Form.Control>
-                </Form.Group>
-            </Form>
+    <Form.Group as={Col} controlId="scheduleTypeFilter" xs={6} sm={6} md={3}>
+        <Form.Label>Schedule Type Filter</Form.Label>
+        <Form.Control as="select" value={scheduleTypeFilter} onChange={(e) => setScheduleTypeFilter(e.target.value)}>
+            <option value="">All</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </Form.Control>
+    </Form.Group>
+</Form>
 
             <h1>Moderate Points</h1>
             <div className="table-responsive">

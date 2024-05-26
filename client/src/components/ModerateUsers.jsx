@@ -108,14 +108,14 @@ const ModerateUsers = () => {
 
     return (
         <>
-        <Form.Control
+            <Form.Control
                 type="text"
                 placeholder="Search by username or createdBy."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="mb-2"
             />
-            
+
             <Form as={Row} className="justify-content-between mb-1">
                 <Form.Group as={Col} controlId="sortBy">
                     <Form.Label>Sort By</Form.Label>
@@ -134,29 +134,29 @@ const ModerateUsers = () => {
                     </Form.Control>
                 </Form.Group>
                 <Form.Group as={Col} controlId="dateRange" className="mb-0">
-                <Form.Label>Date Range</Form.Label>
-                <div className="d-flex">
-                    <DatePicker
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        selectsStart
-                        startDate={startDate}
-                        endDate={endDate}
-                        placeholderText="Start Date"
-                        className="form-control"
-                    />
-                    <DatePicker
-                        selected={endDate}
-                        onChange={(date) => setEndDate(date)}
-                        selectsEnd
-                        startDate={startDate}
-                        endDate={endDate}
-                        minDate={startDate}
-                        placeholderText="End Date"
-                        className="form-control"
-                    />
-                </div>
-            </Form.Group>
+                    <Form.Label>Date Range</Form.Label>
+                    <div className="d-flex flex-column flex-sm-row">
+                        <DatePicker
+                            selected={startDate}
+                            onChange={(date) => setStartDate(date)}
+                            selectsStart
+                            startDate={startDate}
+                            endDate={endDate}
+                            placeholderText="Start Date"
+                            className="form-control mb-2 mb-sm-0"
+                        />
+                        <DatePicker
+                            selected={endDate}
+                            onChange={(date) => setEndDate(date)}
+                            selectsEnd
+                            startDate={startDate}
+                            endDate={endDate}
+                            minDate={startDate}
+                            placeholderText="End Date"
+                            className="form-control"
+                        />
+                    </div>
+                </Form.Group>
 
             </Form>
             <h1>Moderate Users</h1>

@@ -46,54 +46,47 @@ const Profile = () => {
     }, []);
 
     return (
-        <Container className="mt-4" style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Row className='w-100'>
-            
-
-                <Col>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>Profile</Card.Title>
-                            {userData ?
-                                <>
-                                    
-                                        <Card.Text>
-                                            <strong>Username:</strong> {userData.username} <br />
-                                            <strong>Role:</strong> {userData.role}<br />
-                                            <strong>E-mail:</strong> {userData.email}<br />
-                                            <strong>City:</strong> {userData.city ? userData.city : "City is not settled"}<br />
-                                            <strong>District:</strong> {userData.district ? userData.district : "District is not settled"}<br/>
-                                            <a href={`https://t.me/ukraineinteractivemap_bot?start=${userData.username}`}>Telegram</a>
-                                        </Card.Text>
-                                    
-                                    {/* {!isEditing &&  */}
-                                    <Button variant="primary" onClick={handleEdit}>Edit data</Button>
-                                     {/* } */}
-                                    <Modal show={showModal} onHide={() => setShowModal(false)}>
-                                        <Modal.Header closeButton>
-                                            <Modal.Title>Edit Profile</Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                            <EditForm editedData={editedData} handleChange={handleChange} handleSubmit={handleSubmit} setIsEditing={setIsEditing} />
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                            <Button variant="primary" onClick={handleSubmit}>Save Changes</Button>
-                                        </Modal.Footer>
-                                    </Modal>
-                                </>
-                                : <Card.Text>Loading...</Card.Text>
-                            }
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-            <Row className='w-100 mt-3'>
-                <Col className="text-center">
-                    <p>You can follow new points added in your city through the Telegram bot</p>
-                    {userData && <a className="btn btn-info" href={`https://t.me/ukraineinteractivemap_bot?start=${userData.username}`}>Telegram</a>}
-                </Col>
-            </Row>
-        </Container>
+        <Container className="mt-4" style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+        <Row className='w-100 justify-content-center'>
+          <Col xs={12} md={8} lg={6}>
+            <Card className='mb-5'>
+              <Card.Body>
+                <Card.Title>Profile</Card.Title>
+                {userData ?
+                  <>
+                    <Card.Text>
+                      <strong>Username:</strong> {userData.username} <br />
+                      <strong>Role:</strong> {userData.role}<br />
+                      <strong>E-mail:</strong> {userData.email}<br />
+                      <strong>City:</strong> {userData.city ? userData.city : "City is not settled"}<br />
+                      <strong>District:</strong> {userData.district ? userData.district : "District is not settled"}<br/>
+                    </Card.Text>
+                    <Button variant="primary" onClick={handleEdit}>Edit data</Button>
+                    <Modal show={showModal} onHide={() => setShowModal(false)}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Edit Profile</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <EditForm editedData={editedData} handleChange={handleChange} handleSubmit={handleSubmit} setIsEditing={setIsEditing} />
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="primary" onClick={handleSubmit}>Save Changes</Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </>
+                  : <Card.Text>Loading...</Card.Text>
+                }
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+        <Row className='w-100 justify-content-center'>
+          <Col xs={12} md={8} lg={6} className="text-center">
+            <p>You can follow new points added in your city through the Telegram bot</p>
+            {userData && <a className="primary" href={`https://t.me/ukraineinteractivemap_bot?start=${userData.username}`}>Telegram</a>}
+          </Col>
+        </Row>
+      </Container>
     );
 };
 
