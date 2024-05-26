@@ -6,10 +6,11 @@ import axios from 'axios';
 import backgroundImage from '../images/UkraineMapScreen5.png';
 
 const Home = () => {
+  const backendUrl = process.env.VITE_BACKEND_URL;
   const [userData, setUser] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    axios.get('http://16.171.126.4:8080/getsession', { withCredentials: true })
+    axios.get('${backendUrl}/getsession', { withCredentials: true })
       .then(result => {
         const userData = result.data;
         setUser(userData);
@@ -21,7 +22,7 @@ const Home = () => {
   const logout = (event) => {
     event.preventDefault();
     
-    axios.post( 'http://localhost:3001/logout')
+    axios.post( '${backendUrl}/logout')
     .then(result => {
         if(result.data.message === 'Logged out successfully'){
             alert('Logged out successfully');
