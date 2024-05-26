@@ -21,7 +21,7 @@ const Login = () => {
                 window.location.reload();
             }
             else{
-                alert('Incorrect password! Please try again.');
+                alert(result.data.message);
             }
         })
         .catch(err => console.log(err));

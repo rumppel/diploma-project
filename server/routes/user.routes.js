@@ -47,14 +47,14 @@ router.post('/login', async (req, res) => {
     const user = await AuthUserModel.findOne({ username });
 
     if (!user) {
-      return res.status(401).json({ error: 'Невірні дані аутентифікації' });
+      return res.json("User not found");
     }
 
     // Порівняємо введений пароль із збереженим хешем
     const isMatch = await bcrypt.compare(password, user.hashedPassword);
 
     if (!isMatch) {
-      return res.json("Unsuccessfully");
+      return res.json("Incorrect password");
     }
     
     req.session.user = {
