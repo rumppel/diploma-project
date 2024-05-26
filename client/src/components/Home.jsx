@@ -9,7 +9,7 @@ const Home = () => {
   const [userData, setUser] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    axios.get('http://16.171.126.4:3001/getsession', { withCredentials: true })
+    axios.get('http://16.171.126.4:8080/getsession', { withCredentials: true })
       .then(result => {
         const userData = result.data;
         setUser(userData);
