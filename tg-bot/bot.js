@@ -74,8 +74,22 @@ bot.onText(/\/start (.+)/, async (msg, match) => {
               }
           });
       } else {
-          const message = `Username: ${userInfo.username}\nCity: ${userInfo.city}`;
-          bot.sendMessage(chatId, message);
+        bot.sendMessage(chatId, 'Please enter password:');
+        bot.once('message', async (msg) => {
+          console.log(msg.text, userInfo.hashedPassword);
+          const isMatch = await bcrypt.compare(msg.text, userInfo.hashedPassword);
+          if (isMatch) {
+            bot.sendMessage(chatId, 'Access granted. Welcome!!!!!!!');
+            // Save moderator status to rememberedUsers
+            rememberedUsers[chatId].isAuthenticated = true;
+            const message = `Username: ${userInfo.username}\nCity: ${userInfo.city}`;
+            bot.sendMessage(chatId, message);
+          } else {
+            bot.sendMessage(chatId, 'Incorrect password. Access denied.');
+            delete rememberedUsers[chatId];
+          }
+        });
+          
       }
   } catch (error) {
       console.error(error);
