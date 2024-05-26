@@ -87,6 +87,12 @@ const Profile = () => {
                     </Card>
                 </Col>
             </Row>
+            <Row className='w-100 mt-3'>
+                <Col className="text-center">
+                    <p>You can follow new points added in your city through the Telegram bot</p>
+                    {userData && <a className="btn btn-info" href={`https://t.me/ukraineinteractivemap_bot?start=${userData.username}`}>Telegram</a>}
+                </Col>
+            </Row>
         </Container>
     );
 };

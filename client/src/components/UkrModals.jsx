@@ -70,7 +70,8 @@ export const ModalAddPoint = ({ userData, formData, setFormData, showModal, sele
         data.append('createdBy', createdBy);
         data.append('category', formData.category);
         data.append('description', formData.description);
-        data.append('typeOfWeapon', formData.typeOfWeapon);
+        const typeOfWeapon = formData.typeOfWeapon || 'Unknown';
+        data.append('typeOfWeapon', typeOfWeapon);
         data.append('dateOfDestruction', formData.dateOfDestruction);
         const sourceValue = selectedSource === 'specified' ? specifiedSourceLink : selectedSource === 'userPhoto' ? `Photo by ${createdBy}` : 'Unknown';
         data.append('source', sourceValue);
