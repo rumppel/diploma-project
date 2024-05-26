@@ -47,7 +47,6 @@ const pointSchema = new mongoose.Schema({
   },
   typeOfWeapon: {
     type: String,
-    required: true,
     default: 'Unknown',
   },
   isPosted: {
