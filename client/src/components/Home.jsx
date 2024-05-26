@@ -6,7 +6,7 @@ import axios from 'axios';
 import backgroundImage from '../images/UkraineMapScreen5.png';
 
 const Home = () => {
-  const backendUrl = process.env.VITE_BACKEND_URL;
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [userData, setUser] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
