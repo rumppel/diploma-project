@@ -10,7 +10,7 @@ const Home = () => {
   const [userData, setUser] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    axios.get('${backendUrl}/getsession', { withCredentials: true })
+    axios.get(`${backendUrl}/getsession`, { withCredentials: true })
       .then(result => {
         const userData = result.data;
         setUser(userData);
@@ -22,7 +22,7 @@ const Home = () => {
   const logout = (event) => {
     event.preventDefault();
     
-    axios.post( '${backendUrl}/logout')
+    axios.post( `${backendUrl}/logout`)
     .then(result => {
         if(result.data.message === 'Logged out successfully'){
             alert('Logged out successfully');

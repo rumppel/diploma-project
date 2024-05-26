@@ -13,7 +13,7 @@ const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        axios.post( '${backendUrl}/login', {username, password})
+        axios.post( `${backendUrl}/login`, {username, password})
         .then(result => {
             if(result.data.message === "Success"){
                 alert('Login successful!');
