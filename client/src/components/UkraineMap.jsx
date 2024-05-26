@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { MapPopoverModerator, MapPopoverUser } from './UkrPopovers'; // Додані окремі компоненти Popover
 import { ModalAddPoint, ModalPointDetails } from './UkrModals';
 const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN;
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 // Основний компонент
 const UkraineMap = () => {
 
@@ -46,7 +47,7 @@ const UkraineMap = () => {
     const [isFiltered, setIsFiltered] = useState(false);
 
     useEffect(() => {
-            axios.get('http://localhost:3001/getsession', { withCredentials: true })
+            axios.get(`${backendUrl}/getsession`, { withCredentials: true })
                 .then(result => {
                     const userData = result.data;
                     setUser(userData);
@@ -57,7 +58,7 @@ const UkraineMap = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/getpoints');
+                const response = await axios.get(`${backendUrl}/getpoints`);
                 const data = response.data;
                 setPoints(data);
                 // Фільтруємо маркери зі списку отриманих даних, які мають поле isPosted: true
@@ -135,7 +136,7 @@ const UkraineMap = () => {
                 moderatedBy: userData.username // Передача імені користувача з об'єкту userData
             };
             await axios.put(
-                `http://localhost:3001/updatelocation/${markerData.point._id}`, requestData,
+                `${backendUrl}/updatelocation/${markerData.point._id}`, requestData,
                 { withCredentials: false }
             );
             console.log('Геодані оновлено успішно');
@@ -167,7 +168,7 @@ const UkraineMap = () => {
     const fetchMarkerData = async (longitude, latitude) => {
         const timeoutMs = 5000; // 10 seconds timeout
         try {
-            const responsePromise = axios.get(`http://localhost:3001/getpoint?longitude=${longitude}&latitude=${latitude}`);
+            const responsePromise = axios.get(`${backendUrl}/getpoint?longitude=${longitude}&latitude=${latitude}`);
             const response = await Promise.race([responsePromise, new Promise((_, reject) => setTimeout(() => reject(new Error('Request timeout')), timeoutMs))]);
             return response.data; // Return data on success
         } catch (error) {

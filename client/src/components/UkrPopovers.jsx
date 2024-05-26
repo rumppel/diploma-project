@@ -3,7 +3,7 @@ import { OverlayTrigger, Popover, Form, Row, Col, Button, FormControl, FormGroup
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
-
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 // Окремий компонент Popover для модератора
 export const MapPopoverModerator = ({ points, updateFilteredPoints, setIsFiltered }) => {
@@ -34,7 +34,7 @@ const handleWeaponSelect = (categoryId) => {
     useEffect(() => {
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/getpoints');
+            const response = await axios.get(`${backendUrl}/getpoints`);
             const data = response.data;
             let categories = [];
             let weapon = [];
@@ -222,7 +222,7 @@ export const MapPopoverUser = ({ points, updateFilteredPoints, setIsFiltered }) 
         useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/getpoints');
+                const response = await axios.get(`${backendUrl}/getpoints`);
                 const data = response.data;
                 let categories = [];
                 let weapon = [];

@@ -4,7 +4,7 @@ import { Modal, Form, Button, FormControl, FormGroup, FormLabel, Carousel, Alert
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import AlertComponent from './AlertComponent';
-
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN;
 // Модальне вікно для додавання точки
 export const ModalAddPoint = ({ userData, formData, setFormData, showModal, selectedPoint, setSelectedPoint, setShowModal }) => {
@@ -80,7 +80,7 @@ export const ModalAddPoint = ({ userData, formData, setFormData, showModal, sele
 
         try {
 
-            const response = await axios.post('http://localhost:3001/addpoint', data, {
+            const response = await axios.post(`${backendUrl}/addpoint`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

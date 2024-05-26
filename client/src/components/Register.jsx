@@ -6,6 +6,7 @@ import AlertComponent from './AlertComponent';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -23,7 +24,7 @@ const Register = () => {
 
     const fetchCityOptions = async (inputValue) => {
         try {
-            const response = await axios.get(`http://localhost:3001/cities?query=${inputValue}`);
+            const response = await axios.get(`${backendUrl}/cities?query=${inputValue}`);
             setCityOptions(response.data);
         } catch (error) {
             console.error('Error fetching city options:', error);
@@ -34,7 +35,7 @@ const Register = () => {
         // Функція, яка виконує запит до сервера для отримання списку міст
         const fetchCities = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/cities');
+                const response = await axios.get(`${backendUrl}/cities`);
                 setCities(response.data);
             } catch (error) {
                 console.error('Error fetching cities:', error);
@@ -83,7 +84,7 @@ const Register = () => {
         else{
         event.preventDefault();
         axios.get('/');
-        axios.post( 'http://localhost:3001/register', {username, email, password, city, district})
+        axios.post( `${backendUrl}/register`, {username, email, password, city, district})
         .then(result => {
             if(result.data === "Already registered"){
                 alert("E-mail or Username already registered! Please Login to proceed.");

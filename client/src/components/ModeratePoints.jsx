@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const ModeratePoints = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [userData, setUser] = useState(null);
     const [points, setPoints] = useState([]);
     const [showEditModalPoint, setShowEditModalPoint] = useState(false);
@@ -43,7 +44,7 @@ const ModeratePoints = () => {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:3001/points', { withCredentials: true })
+        axios.get(`${backendUrl}/points`, { withCredentials: true })
             .then(result => {
                 setPoints(result.data);
             })
@@ -96,7 +97,7 @@ const ModeratePoints = () => {
     };
 
     const handleEditClick = (data) => {
-        axios.get(`http://localhost:3001/points/${data._id}`, { withCredentials: true })
+        axios.get(`${backendUrl}/points/${data._id}`, { withCredentials: true })
             .then(result => {
                 setSelectedPoint(result.data.point);
                 setEditedPointData({ ...result.data.point });
@@ -145,7 +146,7 @@ const ModeratePoints = () => {
         });
 
         console.log(existingImages);
-        axios.put(`http://localhost:3001/points/${selectedPoint._id}`, formData, { withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' } })
+        axios.put(`${backendUrl}/points/${selectedPoint._id}`, formData, { withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' } })
             .then(() => {
                 const updatedPoints = points.map(point =>
                     point._id === selectedPoint._id ? editedPointData : point
@@ -157,7 +158,7 @@ const ModeratePoints = () => {
     }
 
     const handleDeleteClick = (dataId) => {
-        axios.delete(`http://localhost:3001/points/${dataId}`, { withCredentials: true })
+        axios.delete(`${backendUrl}/points/${dataId}`, { withCredentials: true })
             .then(() => {
                 const updatedPoints = points.filter(point => point._id !== dataId);
                 setPoints(updatedPoints);
@@ -187,7 +188,7 @@ const ModeratePoints = () => {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:3001/getsession', { withCredentials: true })
+        axios.get(`${backendUrl}/getsession`, { withCredentials: true })
             .then(result => {
                 const userData = result.data;
                 setUser(userData);

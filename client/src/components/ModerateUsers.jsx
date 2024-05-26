@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const ModerateUsers = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [users, setUsers] = useState([]);
     const [showEditModal, setShowEditModal] = useState(false);
     const [editedUserData, setEditedUserData] = useState({});
@@ -63,7 +64,7 @@ const ModerateUsers = () => {
     
 
     useEffect(() => {
-        axios.get('http://localhost:3001/users', { withCredentials: true })
+        axios.get(`${backendUrl}/users`, { withCredentials: true })
             .then(result => {
                 setUsers(result.data);
             })
@@ -85,7 +86,7 @@ const ModerateUsers = () => {
     };
 
     const handleEditSubmit = () => {
-            axios.put(`http://localhost:3001/users/${selectedUser._id}`, editedUserData, { withCredentials: true })
+            axios.put(`${backendUrl}/users/${selectedUser._id}`, editedUserData, { withCredentials: true })
                 .then(() => {
                     const updatedUsers = users.map(user =>
                         user._id === selectedUser._id ? editedUserData : user
@@ -97,7 +98,7 @@ const ModerateUsers = () => {
     }
 
     const handleDeleteClick = (dataId) => {
-            axios.delete(`http://localhost:3001/users/${dataId}`, { withCredentials: true })
+            axios.delete(`${backendUrl}/users/${dataId}`, { withCredentials: true })
                 .then(() => {
                     const updatedUsers = users.filter(user => user._id !== dataId);
                     setUsers(updatedUsers);

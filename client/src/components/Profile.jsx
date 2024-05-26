@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Button, Form, Modal } from 'react-bootstrap'
 import axios from 'axios';
 
 const Profile = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [userData, setUser] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [editedData, setEditedData] = useState({});
@@ -25,7 +26,7 @@ const Profile = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Відправка даних на сервер для збереження, наприклад:
-        axios.post('http://localhost:3001/updateprofile', editedData, { withCredentials: true })
+        axios.post(`${backendUrl}/updateprofile`, editedData, { withCredentials: true })
             .then(() => {
                 setIsEditing(false);
                 setShowModal(false);
@@ -36,7 +37,7 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:3001/getsession', { withCredentials: true })
+        axios.get(`${backendUrl}/getsession`, { withCredentials: true })
             .then(result => {
                 const userData = result.data;
                 setUser(userData);

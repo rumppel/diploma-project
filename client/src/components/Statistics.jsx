@@ -7,6 +7,7 @@ import 'chartjs-adapter-moment';
 //import { enUS } from 'date-fns/locale';
 
 const Statistics = () => {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [data, setData] = useState(null);
     const [dataPie, setDataPie] = useState(null);
     const [chartType, setChartType] = useState('category');
@@ -17,8 +18,8 @@ const Statistics = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/fetchstatistics?chartType=${chartType}&startDate=${startDate}&endDate=${endDate}`);
-                const responsePie = await axios.get(`http://localhost:3001/fetchstatisticspie?chartType=${chartType}&startDate=${startDate}&endDate=${endDate}`);
+                const response = await axios.get(`${backendUrl}/fetchstatistics?chartType=${chartType}&startDate=${startDate}&endDate=${endDate}`);
+                const responsePie = await axios.get(`${backendUrl}/fetchstatisticspie?chartType=${chartType}&startDate=${startDate}&endDate=${endDate}`);
                 setData(response.data);
                 setDataPie(responsePie.data);
                 console.log(response.data);
