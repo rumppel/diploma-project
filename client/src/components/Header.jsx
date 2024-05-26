@@ -7,7 +7,7 @@ const Header = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     useEffect(() => {
         if (!userData) {
-        axios.get('${backendUrl}/getsession', { withCredentials: true })
+        axios.get(`${backendUrl}/getsession`, { withCredentials: true })
             .then(result => {
                 const userData = result.data;
                 setUser(userData);
@@ -19,7 +19,7 @@ const Header = () => {
     const logout = (event) => {
         event.preventDefault();
 
-        axios.post('${backendUrl}/logout')
+        axios.post(`${backendUrl}/logout`)
             .then(result => {
                 if (result.data.message === 'Logged out successfully') {
                     alert('Logged out successfully');
