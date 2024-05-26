@@ -4,9 +4,10 @@ import axios from 'axios';
 
 const Header = () => {
     const [userData, setUser] = useState(null);
+    const backendUrl = process.env.VITE_BACKEND_URL;
     useEffect(() => {
         if (!userData) {
-        axios.get('http://localhost:3001/getsession', { withCredentials: true })
+        axios.get('${backendUrl}/getsession', { withCredentials: true })
             .then(result => {
                 const userData = result.data;
                 setUser(userData);
@@ -18,7 +19,7 @@ const Header = () => {
     const logout = (event) => {
         event.preventDefault();
 
-        axios.post('http://localhost:3001/logout')
+        axios.post('${backendUrl}/logout')
             .then(result => {
                 if (result.data.message === 'Logged out successfully') {
                     alert('Logged out successfully');
