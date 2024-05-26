@@ -220,7 +220,7 @@ const UkraineMap = () => {
                 }
             {/* </div> */}
 
-            <ModalAddPoint userData={userData} formData={formData} setFormData={setFormData} selectedPoint={selectedPoint} showModal={showModal} setSelectedPoint={setSelectedPoint} setShowModal={setShowModal} />
+            <ModalAddPoint userData={userData} formData={formData} setFormData={setFormData} selectedPoint={selectedPoint} showModal={showModal} setSelectedPoint={setSelectedPoint} setShowModal={setShowModal} setMarkerData={setMarkerData}/>
             <ModalPointDetails userData={userData} markerData={markerData} showMarkerModal={showMarkerModal} setShowMarkerModal={setShowMarkerModal} handleRelocateClick={handleRelocateClick} />
         </div>
     );

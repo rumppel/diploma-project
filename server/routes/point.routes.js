@@ -277,7 +277,7 @@ try {
       //await PointModel.findByIdAndUpdate(updatedPoint._id, { images: imagesToUpload });
 
     }
-    await ImageModel.deleteMany({ _id: { $nin: imageIds } });
+    //await ImageModel.deleteMany({ _id: { $nin: imageIds } });
     // Збережіть оновлену точку в базі даних
     await updatedPoint.save();
       

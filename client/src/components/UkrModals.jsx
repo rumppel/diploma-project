@@ -7,7 +7,7 @@ import AlertComponent from './AlertComponent';
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN;
 // Модальне вікно для додавання точки
-export const ModalAddPoint = ({ userData, formData, setFormData, showModal, selectedPoint, setSelectedPoint, setShowModal }) => {
+export const ModalAddPoint = ({ userData, formData, setFormData, showModal, selectedPoint, setSelectedPoint, setShowModal, setMarkerData }) => {
     const [errorMessages, setErrorMessages] = useState([]);
     const [selectedSource, setSelectedSource] = useState('');
     const [specifiedSourceLink, setSpecifiedSourceLink] = useState('');
@@ -57,6 +57,7 @@ export const ModalAddPoint = ({ userData, formData, setFormData, showModal, sele
         }
         setSelectedPoint(null);
         setShowModal(false);
+        setMarkerData(null);
     };
 
     const saveMarkerToDatabase = async (longitude, latitude, place_name, city, createdBy, formData) => {
@@ -98,10 +99,6 @@ export const ModalAddPoint = ({ userData, formData, setFormData, showModal, sele
                 <Modal.Title>Add Point</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {selectedPoint && (
-                    <p>Chosen point: {selectedPoint.lng}, {selectedPoint.lat}</p>
-                )}
-
                 <Form>
                     <FormGroup>
                         <FormLabel>Category (optional)</FormLabel>
@@ -143,7 +140,7 @@ export const ModalAddPoint = ({ userData, formData, setFormData, showModal, sele
                         />
                     </FormGroup>
                     <FormGroup>
-                        <FormLabel>Date of Destruction</FormLabel>
+                        <FormLabel>Incident date</FormLabel>
                         <FormControl
                             type="date"
                             name="dateOfDestruction"
