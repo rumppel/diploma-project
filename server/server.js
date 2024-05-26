@@ -27,7 +27,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions ={
-    origin:'http://13.53.137.24', 
+    origin:'http://16.171.126.4', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
