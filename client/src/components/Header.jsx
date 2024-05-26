@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const Header = () => {
     const [userData, setUser] = useState(null);
-    const backendUrl = process.env.VITE_BACKEND_URL;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     useEffect(() => {
         if (!userData) {
         axios.get('${backendUrl}/getsession', { withCredentials: true })
