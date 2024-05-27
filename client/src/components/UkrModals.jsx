@@ -31,13 +31,28 @@ export const ModalAddPoint = ({ userData, formData, setFormData, showModal, sele
         }
 
         if (!formData.dateOfDestruction) {
-            errors.push('Please select a date of destruction.');
+            errors.push('Please select an incedent date.');
         }
 
         if (!selectedSource) {
             errors.push('Please select a source.');
         }
-
+        const urlPattern = new RegExp(
+            '^(https?:\\/\\/)' + // Протокол (https або http)
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // Доменне ім'я
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // IP-адреса (v4)
+            '(\\:\\d+)?' + // Порт (необов'язковий)
+            '(\\/[-a-z\\d%_.~+]*)*' + // Шлях (необов'язковий)
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // Запит (необов'язковий)
+            '(\\#[-a-z\\d_]*)?$', // Фрагмент якоря (необов'язковий)
+            'i' // Регістронезалежний
+          );
+        if (specifiedSourceLink) {
+            let l = urlPattern.test(specifiedSourceLink);
+            if (!urlPattern.test(specifiedSourceLink)) {
+                errors.push('Specified source must be a valid URL.');
+            }
+        }
         setErrorMessages(errors);
 
         // Якщо є помилки, не відправляти запит
@@ -173,6 +188,7 @@ export const ModalAddPoint = ({ userData, formData, setFormData, showModal, sele
             <FormControl
                 type="text"
                 value={specifiedSourceLink}
+                className={`form-control ${errorMessages.includes('Specified source must be a valid URL.') ? 'is-invalid' : ''}`}
                 onChange={(e) => setSpecifiedSourceLink(e.target.value)}
             />
         </FormGroup>

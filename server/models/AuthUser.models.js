@@ -27,7 +27,7 @@ const authUserSchema = new mongoose.Schema({
     unique: false,
     default: '',
   },
-  district: {
+  telegram: {
     type: String,
     required: false,
     unique: false,

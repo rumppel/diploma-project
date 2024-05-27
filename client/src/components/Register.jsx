@@ -11,14 +11,14 @@ const Register = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [city, setCity] = useState();
-    const [district, setDistrict] = useState();
-    const [showDistrict, setShowDistrict] = useState(false);
+    const [telegram, setTelegram] = useState();
+    const [showTelegram, setShowTelegram] = useState(false);
     const navigate = useNavigate();
     const [cities, setCities] = useState([]);
     const [cityOptions, setCityOptions] = useState([]);
-    const [districtOptions, setDistrictOptions] = useState([]);
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const usernamePattern = /^[a-zA-Z_]+$/;
 
     const [errorMessages, setErrorMessages] = useState([]);
 
@@ -49,8 +49,7 @@ const Register = () => {
         const { value } = event.target;
         setCity(value);
         fetchCityOptions(value);
-        setDistrict(''); // Очищення значення округи при зміні міста
-        setShowDistrict(!!value); // Перевірка на пустий рядок
+        setShowTelegram(!!value); // Перевірка на пустий рядок
     };
     
 
@@ -59,6 +58,10 @@ const Register = () => {
 
         if (!username) {
             errors.push('Please enter an username.');
+        }
+
+        if (!password) {
+            errors.push('Please enter a password.');
         }
 
         if (!email) {
@@ -75,6 +78,12 @@ const Register = () => {
             errors.push('Please select a city from the list.');
         }
 
+        if (telegram) {
+            if (!usernamePattern.test(username)) {
+                errors.push('Please enter a valid telegram: user_name.');
+            }
+        }
+
         setErrorMessages(errors);
         console.log(errors);
         // Якщо є помилки, не відправляти запит
@@ -84,7 +93,7 @@ const Register = () => {
         else{
         event.preventDefault();
         axios.get('/');
-        axios.post( `${backendUrl}/register`, {username, email, password, city, district})
+        axios.post( `${backendUrl}/register`, {username, email, password, city, telegram})
         .then(result => {
             if(result.data === "Already registered"){
                 alert("E-mail or Username already registered! Please Login to proceed.");
@@ -140,7 +149,7 @@ const Register = () => {
                             <input 
                                 type="password" 
                                 placeholder="Enter Password"
-                                className="form-control" 
+                                className={`form-control ${errorMessages.includes('Please enter a password.') ? 'is-invalid' : ''}`} 
                                 id="inputPassword" 
                                 onChange={(event) => setPassword(event.target.value)}
                                 required
@@ -178,17 +187,17 @@ const Register = () => {
                                 </div>
                             )}
                         </div>
-                        {showDistrict && (
+                        {showTelegram && (
                             <div className="mb-2 text-start">
                             <label htmlFor="exampleInputPassword1" className="form-label">
                                 <strong>Telegram (optional)</strong>
                             </label>
                             <input 
                                 type="text" 
-                                placeholder="Enter your Telegram"
-                                className="form-control" 
-                                id="inputDictrict" 
-                                onChange={(event) => setDistrict(event.target.value)}
+                                placeholder="user_name"
+                                className={`form-control ${errorMessages.includes('Please enter a valid telegram: user_name.') ? 'is-invalid' : ''}`}
+                                id="inputTelephone" 
+                                onChange={(event) => setTelegram(event.target.value)}
                             />
                         </div>
                         )}

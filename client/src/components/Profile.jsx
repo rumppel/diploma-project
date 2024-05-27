@@ -59,7 +59,7 @@ const Profile = () => {
                       <strong>Role:</strong> {userData.role}<br />
                       <strong>E-mail:</strong> {userData.email}<br />
                       <strong>City:</strong> {userData.city ? userData.city : "City is not settled"}<br />
-                      <strong>District:</strong> {userData.district ? userData.district : "District is not settled"}<br/>
+                      <strong>Telegram:</strong> {userData.telegram ? userData.telegram : "Telegram is not settled"}<br/>
                     </Card.Text>
                     <Button variant="primary" onClick={handleEdit}>Edit data</Button>
                     <Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -81,10 +81,13 @@ const Profile = () => {
           </Col>
         </Row>
         <Row className='w-100 justify-content-center'>
+        {userData ?
           <Col xs={12} md={8} lg={6} className="text-center">
             <p>You can follow new points added in your city through the Telegram bot</p>
-            {userData && <a className="primary" href={`https://t.me/ukraineinteractivemap_bot?start=${userData.username}`}>Telegram</a>}
+            {userData.telegram ? null : <Button variant="primary" onClick={handleEdit}>Add telegram</Button>}
+            {userData.telegram && <a className="primary" href={`https://t.me/ukraineinteractivemap_bot?start=${userData.telegram}`}>Telegram</a>}
           </Col>
+          : null}
         </Row>
       </Container>
     );
@@ -109,9 +112,9 @@ const EditForm = ({ editedData, handleChange, handleSubmit, setIsEditing }) => {
                 <Form.Label>City</Form.Label>
                 <Form.Control type="text" name="city" defaultValue={editedData.city} onChange={handleChange} />
             </Form.Group>
-            <Form.Group controlId="formDistrict">
-                <Form.Label>District</Form.Label>
-                <Form.Control type="text" name="district" defaultValue={editedData.district} onChange={handleChange} />
+            <Form.Group controlId="formTelegram">
+                <Form.Label>Telegram</Form.Label>
+                <Form.Control type="text" name="telegram" defaultValue={editedData.telegram} onChange={handleChange} />
             </Form.Group>
             {/* <div className="mt-3">
                 <Button variant="primary" className='w-100' type="submit">Save</Button>

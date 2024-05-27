@@ -1,14 +1,12 @@
 
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react'; // Додайте useState у імпорт
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import backgroundImage from '../images/UkraineMapScreen5.png';
 
 const Home = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [userData, setUser] = useState(null);
-  const navigate = useNavigate();
   useEffect(() => {
     axios.get(`${backendUrl}/getsession`, { withCredentials: true })
       .then(result => {

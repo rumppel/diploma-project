@@ -12,7 +12,7 @@ router.get('/register', (req, res) => {
 // Реєстрація нового користувача
 router.post('/register', async (req, res)=>{
     try {
-        const { username, password, email, city, district } = req.body;
+        const { username, password, email, city, telegram } = req.body;
     
         // Перевірка, чи користувач з таким іменем або email вже існує
         const existingUser = await AuthUserModel.findOne({ $or: [{ username }, { email }] });
@@ -28,7 +28,7 @@ router.post('/register', async (req, res)=>{
           hashedPassword: hashedPassword,
           email,
           city,
-          district,
+          telegram,
         });
     
         await user.save();
@@ -63,7 +63,7 @@ router.post('/login', async (req, res) => {
       role: user.role,
       email: user.email,
       city: user.city,
-      district: user.district,
+      telegram: user.telegram,
       isLoggedIn: true
     };
 
@@ -131,13 +131,13 @@ router.get('/getprofiledata', async (req, res) => {
 
 router.post('/updateprofile', async (req, res) => {
   try {
-    const { id, username, password, email, city, district } = req.body;
+    const { id, username, password, email, city, telegram } = req.body;
 
     let updatedUser = await AuthUserModel.findByIdAndUpdate(id, {
       username,
       email,
       city,
-      district,
+      telegram,
     }, { new: true });
 
     if (!(!password || password.trim() === '')) {
@@ -158,7 +158,7 @@ router.post('/updateprofile', async (req, res) => {
       role: updatedUser.role,
       email: updatedUser.email,
       city: updatedUser.city,
-      district: updatedUser.district,
+      telegram: updatedUser.telegram,
       isLoggedIn: true
     };
 
@@ -182,9 +182,9 @@ router.get('/users', async (req, res) => {
 
 router.put('/users/:id', async (req, res) => {
   const { id } = req.params;
-  const { username, email, role, city, district } = req.body;
+  const { username, email, role, city, telegram } = req.body;
   try {
-      const updatedUser = await AuthUserModel.findByIdAndUpdate(id, { username, email, role, city, district }, { new: true });
+      const updatedUser = await AuthUserModel.findByIdAndUpdate(id, { username, email, role, city, telegram }, { new: true });
       res.json(updatedUser);
   } catch (err) {
       res.status(500).send(err);

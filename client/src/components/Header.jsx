@@ -62,7 +62,7 @@ const Header = () => {
                 <Nav className="ms-auto">
                     {userData ?
                     <>
-                        <Nav.Link href={`https://t.me/ukraineinteractivemap_bot?start=${userData.username}`}>Telegram-bot</Nav.Link>
+                        <Nav.Link href={`https://t.me/ukraineinteractivemap_bot?start=${userData.telegram}`}>Telegram-bot</Nav.Link>
                         <NavDropdown align="end" className='my-dropdown-toggle' title={userData.username} id="basic-nav-dropdown">
                             <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                             <NavDropdown.Item onClick={logout}>Log out</NavDropdown.Item>

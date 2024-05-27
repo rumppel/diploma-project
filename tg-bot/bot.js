@@ -39,11 +39,17 @@ const rememberedUsers = {};
 bot.onText(/\/start (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
   const username = match[1]; // Введене користувачем ім'я
-
+  const telegramUsername = msg.from.username; // Username користувача в Telegram
   bot.sendMessage(chatId, 'With the help of this bot, you will be able to view new points in your city');
 
+  // Перевірка, чи username користувача в Telegram збігається з введеним ім'ям
+  if (username !== telegramUsername) {
+    bot.sendMessage(chatId, 'The entered username does not match your Telegram username. Enter correct username and try again.');
+    return;
+  }
+
   try {
-      const user = await AuthUserModel.findOne({username});
+      const user = await AuthUserModel.findOne({telegram: username});
       if (!user) {
           bot.sendMessage(chatId, 'User not found');
           return;
@@ -74,22 +80,10 @@ bot.onText(/\/start (.+)/, async (msg, match) => {
               }
           });
       } else {
-        bot.sendMessage(chatId, 'Please enter password:');
-        bot.once('message', async (msg) => {
-          console.log(msg.text, userInfo.hashedPassword);
-          const isMatch = await bcrypt.compare(msg.text, userInfo.hashedPassword);
-          if (isMatch) {
-            bot.sendMessage(chatId, 'Access granted. Welcome!!!!!!!');
-            // Save moderator status to rememberedUsers
+            // Save user status to rememberedUsers
             rememberedUsers[chatId].isAuthenticated = true;
             const message = `Username: ${userInfo.username}\nCity: ${userInfo.city}`;
             bot.sendMessage(chatId, message);
-          } else {
-            bot.sendMessage(chatId, 'Incorrect password. Access denied.');
-            delete rememberedUsers[chatId];
-          }
-        });
-          
       }
   } catch (error) {
       console.error(error);
@@ -102,8 +96,8 @@ bot.onText(/\/start (.+)/, async (msg, match) => {
   bot.onText(/\/getinfo/, async (msg) => {
     const chatId = msg.chat.id;
     if (rememberedUsers[chatId]) {
-      const { username, chatId: savedChatId, role, city } = rememberedUsers[chatId];
-      const message = `Remembered User:\nUsername: ${username}\nChat ID: ${savedChatId}\nRole: ${role}\nCity: ${city}`;
+      const { username, chatId, role, city } = rememberedUsers[chatId];
+      const message = `Remembered User:\nUsername: ${username}\nRole: ${role}\nCity: ${city}`;
       bot.sendMessage(chatId, message);
     } else {
       bot.sendMessage(chatId, 'No user remembered in this chat.');
@@ -153,7 +147,7 @@ bot.onText(/\/recentpoints/, async (msg) => {
   const chatId = msg.chat.id;
   const user = rememberedUsers[chatId];
   if (!user) {
-    bot.sendMessage(chatId, 'Please start the bot first using /start.');
+    bot.sendMessage(chatId, 'Please start the bot first using /start yourUsername');
     return;
   }
 
