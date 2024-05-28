@@ -95,6 +95,11 @@ bot.onText(/\/start (.+)/, async (msg, match) => {
   // Приклад обробників інших команд, які враховують запам'ятаного користувача
   bot.onText(/\/getinfo/, async (msg) => {
     const chatId = msg.chat.id;
+  const user = rememberedUsers[chatId];
+  if (!user) {
+    bot.sendMessage(chatId, 'Please start the bot first using /start yourUsername');
+    return;
+  }
     if (rememberedUsers[chatId]) {
       const { username, chatId, role, city } = rememberedUsers[chatId];
       const message = `Remembered User:\nUsername: ${username}\nRole: ${role}\nCity: ${city}`;
@@ -118,6 +123,11 @@ bot.on('message', (msg) => {
 
 bot.onText(/\/getunpostedpoints/, async (msg) => {
   const chatId = msg.chat.id;
+  const user = rememberedUsers[chatId];
+  if (!user) {
+    bot.sendMessage(chatId, 'Please start the bot first using /start yourUsername');
+    return;
+  }
 
   if (rememberedUsers[chatId] && rememberedUsers[chatId].role === 'moderator' && rememberedUsers[chatId].isAuthenticated) {
     try {
