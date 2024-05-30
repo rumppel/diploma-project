@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import AlertComponent from './AlertComponent';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const Register = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -14,8 +16,8 @@ const Register = () => {
     const [telegram, setTelegram] = useState();
     const [showTelegram, setShowTelegram] = useState(false);
     const navigate = useNavigate();
-    const [cities, setCities] = useState([]);
     const [cityOptions, setCityOptions] = useState([]);
+    const [showPassword, setShowPassword] = useState(false);
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const usernamePattern = /^[a-zA-Z_]+$/;
@@ -30,20 +32,6 @@ const Register = () => {
             console.error('Error fetching city options:', error);
         }
     };
-
-    useEffect(() => {
-        // Функція, яка виконує запит до сервера для отримання списку міст
-        const fetchCities = async () => {
-            try {
-                const response = await axios.get(`${backendUrl}/cities`);
-                setCities(response.data);
-            } catch (error) {
-                console.error('Error fetching cities:', error);
-            }
-        };
-
-        fetchCities(); // Викликаємо функцію при монтуванні компонента
-    }, []);
 
     const handleCityChange = (event) => {
         const { value } = event.target;
@@ -68,10 +56,6 @@ const Register = () => {
             errors.push('Please enter an e-mail.');
         } else if (!emailRegex.test(email)) {
             errors.push('Please enter a valid e-mail.');
-        }
-
-        if (!password) {
-            errors.push('Please enter a password.');
         }
 
         if (city && !cityOptions.some((option) => option.name === city)) {
@@ -112,7 +96,7 @@ const Register = () => {
     return (
         <div>
             <AlertComponent errorMessages={errorMessages} />
-            <div className="d-flex justify-content-center align-items-center text-center vh-100 mt-3" style= {{}}>
+            <div className="d-flex justify-content-center align-items-center text-center vh-100 mt-3" style={{}}>
                 <div className="bg-white p-3 mt-5 rounded col-10 col-sm-8 col-md-6 col-lg-4">
                     <h2 className='mt-5 mb-2 text-primary'>Sign up</h2>
                     <form onSubmit={handleSubmit}>
@@ -120,40 +104,50 @@ const Register = () => {
                             <label htmlFor="exampleInputEmail1" className="form-label">
                                 <strong >Username</strong>
                             </label>
-                            <input 
+                            <input
                                 type="text"
                                 placeholder="Enter Username"
                                 className={`form-control ${errorMessages.includes('Please enter an username.') ? 'is-invalid' : ''}`}
-                                id="inputname" 
+                                id="inputname"
                                 onChange={(event) => setUsername(event.target.value)}
                                 required
-                            /> 
+                            />
                         </div>
                         <div className="mb-2 text-start">
                             <label htmlFor="exampleInputEmail1" className="form-label">
                                 <strong>Email</strong>
                             </label>
-                            <input 
-                                type="email" 
+                            <input
+                                type="email"
                                 placeholder="Enter Email"
                                 className={`form-control ${errorMessages.includes('Please enter an e-mail.') || errorMessages.includes('Please enter a valid e-mail.') ? 'is-invalid' : ''}`}
-                                id="inputEmail" 
+                                id="inputEmail"
                                 onChange={(event) => setEmail(event.target.value)}
                                 required
-                            /> 
+                            />
                         </div>
                         <div className="mb-2 text-start">
                             <label htmlFor="exampleInputPassword1" className="form-label">
                                 <strong>Password</strong>
                             </label>
-                            <input 
-                                type="password" 
-                                placeholder="Enter Password"
-                                className={`form-control ${errorMessages.includes('Please enter a password.') ? 'is-invalid' : ''}`} 
-                                id="inputPassword" 
-                                onChange={(event) => setPassword(event.target.value)}
-                                required
-                            />
+                            <div className="input-group">
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    placeholder="Enter Password"
+                                    className={`form-control ${errorMessages.includes('Please enter a password.') ? 'is-invalid' : ''}`}
+                                    id="inputPassword"
+                                    value={password}
+                                    onChange={(event) => setPassword(event.target.value)}
+                                    required
+                                />
+                                <button
+                                    className="btn btn-outline-secondary"
+                                    type="button"
+                                    onClick={() => setShowPassword((prevShow) => !prevShow)}
+                                >
+                                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                                </button>
+                            </div>
                         </div>
                         <div className="mb-2 text-start">
                             <label htmlFor="exampleInputCity" className="form-label">
@@ -162,7 +156,7 @@ const Register = () => {
                             <input
                                 type="text"
                                 placeholder="Enter City"
-                                className={`form-control ${errorMessages.includes('Please enter an e-mail.') || errorMessages.includes('Please select a city from the list.') ? 'is-invalid' : ''}`}
+                                className={`form-control ${errorMessages.includes('Please select a city from the list.') ? 'is-invalid' : ''}`}
                                 id="exampleInputCity"
                                 list="cityOptions" // Пов'язуємо з ідентифікатором datalist
                                 onChange={handleCityChange}

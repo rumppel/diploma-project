@@ -10,14 +10,14 @@ var schedule = cron.schedule('0 0 * * *', async () => { // Змініть "* * *
   
       points.forEach(async (point) => {
         const now = new Date();
-        const createdAt = new Date(point.createdAt);
+        const dateOfDestruction = new Date(point.dateOfDestruction);
   
         // Логіка планування публікації відповідно до розкладу
-        if (point.scheduleType === 'low' && now - createdAt >= 14 * 24 * 60 * 60 * 1000) {
+        if (point.scheduleType === 'low' && now - dateOfDestruction >= 14 * 24 * 60 * 60 * 1000) {
           point.isPosted = true;
-        } else if (point.scheduleType === 'medium' && now - createdAt >= 2 * 30 * 24 * 60 * 60 * 1000) {
+        } else if (point.scheduleType === 'medium' && now - dateOfDestruction >= 2 * 30 * 24 * 60 * 60 * 1000) {
           point.isPosted = true;
-        } else if (point.scheduleType === 'high' && now - createdAt >= 365 * 24 * 60 * 60 * 1000) {
+        } else if (point.scheduleType === 'high' && now - dateOfDestruction >= 365 * 24 * 60 * 60 * 1000) {
           point.isPosted = true;
         } 
         else if (point.scheduleType === 'custom' && point.customScheduleDate <= now) {

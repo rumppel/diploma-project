@@ -8,7 +8,7 @@ import Moderate from './Moderate';
 import UkraineMap from './UkraineMap';
 import Statistics from './Statistics';
 import HowToHelp from './HowToHelp';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
     <div style={{marginTop : '-3.5rem'}}>
       <BrowserRouter >
         <Routes>
-          <Route path="/" element ={<Header/>} />
+          <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/register" element ={<Register/>} />
           <Route path="/create-session" element ={<CreateSession/>} />
           <Route path="/register" element ={<Register/>} />

@@ -106,39 +106,6 @@ const imageSchema = new mongoose.Schema({
   },
 });
 
-// const ImageModel = mongoose.model('Image', imageSchema);
-
-// // Додавання методу для збереження зображень до точок
-// pointSchema.methods.saveImages = async function (files) {
-//   await ImageModel.deleteMany({ parentId: this._id });
-//   const images = [];
-//   if (!Array.isArray(files)) {
-//     // If files is not an array, convert it to an array
-//     files = [files];
-//   }
-//   for (const file of files) {
-//     const imageBuffer = file.buffer;
-//     const base64Image = imageBuffer.toString('base64');
-//     const mimeType = file.mimeType;
-//     const dataUri = `data:${mimeType};base64,${base64Image}`;
-//     const image = new ImageModel({ parentId: this._id, filename: `${Date.now()}_${file.originalname}`, data: file.buffer, contentType: file.mimetype, dataUri: dataUri });
-//     await image.save();
-//     images.push(image);
-//   }
-//   return images;
-// };
-
-// // Додавання методу для отримання зображень за parentId
-// pointSchema.methods.getImagesByParentId = async function (parentId) {
-//   try {
-//     const images = await ImageModel.find({ parentId });
-//     return images;
-//   } catch (error) {
-//     console.error('Error fetching images by parentId:', error);
-//     return null;
-//   }
-// };
-
 pointSchema.virtual('imageFiles', {
   ref: 'ImageLink',
   localField: '_id',

@@ -170,13 +170,13 @@ bot.onText(/\/recentpoints/, async (msg) => {
       const lastWeek = new Date();
       lastWeek.setDate(lastWeek.getDate() - 7); // Віднімаємо 7 днів
 
-      points = await PointModel.find({ isPosted: true, city, createdAt: { $gte: lastWeek } });
+      points = await PointModel.find({ isPosted: true, city, updatedAt: { $gte: lastWeek } });
     } else if (role === 'moderator') {
       // Отримання точок, що були запропоновані за останній тиждень в місті користувача
       const lastWeek = new Date();
       lastWeek.setDate(lastWeek.getDate() - 7); // Віднімаємо 7 днів
 
-      points = await PointModel.find({ city, createdAt: { $gte: lastWeek } });
+      points = await PointModel.find({ city, updatedAt: { $gte: lastWeek } });
     }
 
     if (points.length === 0) {

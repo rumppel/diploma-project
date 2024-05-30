@@ -3,8 +3,6 @@ import axios from 'axios';
 import Chart from 'chart.js/auto';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'chartjs-adapter-moment';
-//import 'chartjs-adapter-date-fns';
-//import { enUS } from 'date-fns/locale';
 
 const Statistics = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;

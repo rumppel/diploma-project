@@ -2,7 +2,7 @@ name: Deploy diploma-project to EC2
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
 
 jobs:
