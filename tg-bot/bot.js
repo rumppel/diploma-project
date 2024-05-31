@@ -68,15 +68,16 @@ bot.onText(/\/start (.+)/, async (msg, match) => {
       if (userInfo.role === 'moderator') {
           bot.sendMessage(chatId, 'Please enter the moderator password:');
           bot.once('message', async (msg) => {
-            console.log(msg.text, userInfo.hashedPassword);
             const isMatch = await bcrypt.compare(msg.text, userInfo.hashedPassword);
             if (isMatch) {
+              rememberedUsers[chatId].isAuthenticated = true;
               bot.sendMessage(chatId, 'Access granted. Welcome, moderator!');
                   // Save moderator status to rememberedUsers
-                  rememberedUsers[chatId].isAuthenticated = true;
+                  
             } else {
-                  bot.sendMessage(chatId, 'Incorrect password. Access denied.');
                   delete rememberedUsers[chatId];
+                  bot.sendMessage(chatId, 'Incorrect password. Access denied.');
+                  
               }
           });
       } else {
@@ -93,21 +94,21 @@ bot.onText(/\/start (.+)/, async (msg, match) => {
 
   
   // Приклад обробників інших команд, які враховують запам'ятаного користувача
-  bot.onText(/\/getinfo/, async (msg) => {
-    const chatId = msg.chat.id;
+bot.onText(/\/getinfo/, async (msg) => {
+  const chatId = msg.chat.id;
   const user = rememberedUsers[chatId];
   if (!user) {
     bot.sendMessage(chatId, 'Please start the bot first using /start yourUsername');
     return;
   }
-    if (rememberedUsers[chatId]) {
-      const { username, chatId, role, city } = rememberedUsers[chatId];
-      const message = `Remembered User:\nUsername: ${username}\nRole: ${role}\nCity: ${city}`;
-      bot.sendMessage(chatId, message);
-    } else {
-      bot.sendMessage(chatId, 'No user remembered in this chat.');
-    }
-  });
+  if (user) {
+    const { username, chatId, role, city } = user;
+    const message = `Remembered User:\nUsername: ${username}\nRole: ${role}\nCity: ${city}`;
+    bot.sendMessage(chatId, message);
+  } else {
+    bot.sendMessage(chatId, 'No user remembered in this chat.');
+  }
+});
 
 // Обробник команди /help
 bot.onText(/\/help/, (msg) => {
@@ -183,7 +184,7 @@ bot.onText(/\/recentpoints/, async (msg) => {
       bot.sendMessage(chatId, 'No points found in your city in the last week.');
     } else {
       points.forEach(async point => {
-        const message = `Point:\nPlace Name: ${point.place_name}\nCity: ${point.city}\nDescription: ${point.description}\nIncident date: ${point.dateOfDestruction}\nCategory: ${point.category}\nWeapon type: ${point.typeOfWeapon}\nSource: ${point.source}`;
+        const message = `Point:\nPlace Name: ${point.place_name}\nCity: ${point.city}\nDescription: ${point.description}\nIncident date: ${point.dateOfDestruction}\nCategory: ${point.category}\nWeapon type: ${point.typeOfWeapon}`;
         const images = await fetchImagesForPoint(point);
         sendNotificationToModerators(message, role, images);
       });
@@ -200,11 +201,13 @@ const pointChangeStream = PointModel.watch();
 // Start watching for changes
 pointChangeStream.on('change', async (change) => {
   if (change.operationType === 'insert') {
-    const newPoint = change.fullDocument;
-    const message = `New Point suggested:\nPlace Name: ${newPoint.place_name}\nCity: ${newPoint.city}`;
+    //const newPoint = change.fullDocument;
+    const point = await PointModel.findById(change.documentKey._id);
+    const message = `New Point suggested:\nPlace Name: ${point.place_name}\nCity: ${point.city}`;
     // Send message to all users or specific users (depending on your logic)
     //sendNotificationToModerators(message);
-    const images = await fetchImagesForPoint(newPoint);
+    console.log(point);
+    const images = await fetchImagesForPoint(point);
       
     sendNotificationToModerators(message, 'moderator', images);
   }
@@ -228,7 +231,8 @@ function sendNotificationToModerators(message) {
         const message = `New Point posted:\nPlace Name: ${place_name}\nCity: ${city}`;
         const point = await PointModel.findById(change.documentKey._id);
         const images = await fetchImagesForPoint(point);
-      
+        console.log("IN UPDATE");
+        console.log(images);
         sendNotificationToUsersWithRoleAndCity(message, 'user', city, images);
       }
     }
@@ -256,8 +260,11 @@ function sendNotificationToModerators(message) {
             media: imageUrl,
             caption: index === 0 ? message : '', // Додаємо підпис лише до першого зображення
           }));
-          
-          bot.sendMediaGroup(chatId, mediaGroup);
+          console.log(mediaGroup);
+          bot.sendMediaGroup(chatId, mediaGroup).catch(error => {
+            console.error('Error sending media group:', error);
+            bot.sendMessage(chatId, message); // Send message without images if an error occurs
+        });
         } else {
           bot.sendMessage(chatId, message);
         }
@@ -277,7 +284,10 @@ function sendNotificationToModerators(message) {
             caption: index === 0 ? message : '', // Додаємо підпис лише до першого зображення
           }));
           
-          bot.sendMediaGroup(chatId, mediaGroup);
+          bot.sendMediaGroup(chatId, mediaGroup).catch(error => {
+            console.error('Error sending media group:', error);
+            bot.sendMessage(chatId, message); // Send message without images if an error occurs
+        });
         } else {
           bot.sendMessage(chatId, message);
         }

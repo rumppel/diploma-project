@@ -201,8 +201,8 @@ const ModerateUsers = () => {
                             <Form.Control type="text" name="city" value={editedUserData.city} onChange={handleEditChange} />
                         </Form.Group>
                         <Form.Group controlId="formDistrict">
-                            <Form.Label>District</Form.Label>
-                            <Form.Control type="text" name="district" value={editedUserData.district} onChange={handleEditChange} />
+                            <Form.Label>Telegram</Form.Label>
+                            <Form.Control type="text" name="telegram" value={editedUserData.telegram} onChange={handleEditChange} />
                         </Form.Group>
                     </Form>
                     

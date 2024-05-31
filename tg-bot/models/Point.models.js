@@ -139,11 +139,11 @@ const imageSchema = new mongoose.Schema({
 //   }
 // };
 
-pointSchema.virtual('imageFiles', {
-  ref: 'ImageLink',
-  localField: '_id',
-  foreignField: 'parentId',
-});
+// pointSchema.virtual('imageFiles', {
+//   ref: 'ImageLink',
+//   localField: '_id',
+//   foreignField: 'parentId',
+// });
 
 pointSchema.methods.saveImagesLink = async function (files) {
   await mongoose.model('ImageLink').deleteMany({ parentId: this._id });
