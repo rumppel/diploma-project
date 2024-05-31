@@ -51,18 +51,14 @@ const Header = () => {
                     :
                     null
                     }
-                    
-                    {userData && userData.role === 'user' ?
-                    <Nav.Link href="/subscribe">Subscribe for updates</Nav.Link>
-                    :
-                    null
-                    }
-                    
                 </Nav>
                 <Nav className="ms-auto">
                     {userData ?
                     <>
+                        {userData.telegram ?
                         <Nav.Link href={`https://t.me/ukraineinteractivemap_bot?start=${userData.telegram}`}>Telegram-bot</Nav.Link>
+                        : null}
+                        
                         <NavDropdown align="end" className='my-dropdown-toggle' title={userData.username} id="basic-nav-dropdown">
                             <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                             <NavDropdown.Item onClick={logout}>Log out</NavDropdown.Item>
