@@ -1,20 +1,20 @@
 
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from 'react'; // Додайте useState у імпорт
+import React, { useState, useEffect, useContext } from 'react'; // Додайте useState у імпорт
 import axios from 'axios';
 import backgroundImage from '../images/UkraineMapScreen5.png';
-
+import { UserContext } from './UserProvider';
 const Home = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const [userData, setUser] = useState(null);
-  useEffect(() => {
-    axios.get(`${backendUrl}/getsession`, { withCredentials: true })
-      .then(result => {
-        const userData = result.data;
-        setUser(userData);
-      })
-      .catch(err => console.log(err));
-  }, []);
+  const { userData, setUser } = useContext(UserContext);
+  // useEffect(() => {
+  //   axios.get(`${backendUrl}/getsession`, { withCredentials: true })
+  //     .then(result => {
+  //       const userData = result.data;
+  //       setUser(userData);
+  //     })
+  //     .catch(err => console.log(err));
+  // }, []);
 
   
   const logout = (event) => {

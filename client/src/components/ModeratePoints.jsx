@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Table, Button, Modal, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { UserContext } from './UserProvider';
 
 const ModeratePoints = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    const [userData, setUser] = useState(null);
+    const { userData, setUser } = useContext(UserContext);
     const [points, setPoints] = useState([]);
     const [showEditModalPoint, setShowEditModalPoint] = useState(false);
     const [editedPointData, setEditedPointData] = useState({});
@@ -187,14 +188,14 @@ const ModeratePoints = () => {
         setExistingImages(updatedImages);
     };
 
-    useEffect(() => {
-        axios.get(`${backendUrl}/getsession`, { withCredentials: true })
-            .then(result => {
-                const userData = result.data;
-                setUser(userData);
-            })
-            .catch(err => console.log(err));
-    }, []);
+    // useEffect(() => {
+    //     axios.get(`${backendUrl}/getsession`, { withCredentials: true })
+    //         .then(result => {
+    //             const userData = result.data;
+    //             setUser(userData);
+    //         })
+    //         .catch(err => console.log(err));
+    // }, []);
 
 
     return (

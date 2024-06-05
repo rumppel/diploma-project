@@ -1,28 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container, Button } from 'react-bootstrap';
 import ModerateUsers from './ModerateUsers';
 import ModeratePoints from './ModeratePoints';
 import axios from 'axios';
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
+import { UserContext } from './UserProvider';
 const Moderate = () => {
     const [showUsers, setShowUsers] = useState(true);
-    const [userData, setUser] = useState(null);
+    const { userData, setUser } = useContext(UserContext);
     const handleSwitch = () => {
         setShowUsers(prevShowUsers => !prevShowUsers);
     };
 
-    useEffect(() => {
-        axios.get(`${backendUrl}/getsession`, { withCredentials: true })
-            .then(result => {
-                const userData = result.data;
-                setUser(userData);
-            })
-            .catch(err => console.log(err));
-    }, []);
+    // useEffect(() => {
+    //     axios.get(`${backendUrl}/getsession`, { withCredentials: true })
+    //         .then(result => {
+    //             const userData = result.data;
+    //             setUser(userData);
+    //         })
+    //         .catch(err => console.log(err));
+    // }, []);
 
     return (
         <Container className="mt-5 page-content">
-            {userData ? 
+            {userData && userData.role === "moderator" ? 
             <>
             <div className="mb-3 pt-4">
                 <Button variant="primary" className="mr-2" onClick={handleSwitch}>

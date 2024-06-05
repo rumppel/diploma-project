@@ -1,20 +1,20 @@
 import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-
+import { UserContext } from './UserProvider';
 const Header = () => {
-    const [userData, setUser] = useState(null);
+    const { userData, setUser } = useContext(UserContext);
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    useEffect(() => {
-        if (!userData) {
-        axios.get(`${backendUrl}/getsession`, { withCredentials: true })
-            .then(result => {
-                const userData = result.data;
-                setUser(userData);
-            })
-            .catch(err => console.log(err));
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (!userData) {
+    //     axios.get(`${backendUrl}/getsession`, { withCredentials: true })
+    //         .then(result => {
+    //             const userData = result.data;
+    //             setUser(userData);
+    //         })
+    //         .catch(err => console.log(err));
+    //     }
+    // }, []);
 
     const logout = (event) => {
         event.preventDefault();

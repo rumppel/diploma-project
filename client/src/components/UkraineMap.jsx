@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import MapGL, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Button, Modal, Form, FormControl, FormGroup, FormLabel, Carousel } from 'react-bootstrap';
@@ -8,6 +8,8 @@ import { MapPopoverModerator, MapPopoverUser } from './UkrPopovers'; // Дода
 import { ModalAddPoint, ModalPointDetails } from './UkrModals';
 const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN;
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
+import { UserContext } from './UserProvider';
+
 // Основний компонент
 const UkraineMap = () => {
 
@@ -20,7 +22,7 @@ const UkraineMap = () => {
             zoom: 5.3,
         }
     });
-    const [userData, setUser] = useState(null);
+    const { userData, setUser } = useContext(UserContext);
     const [showModal, setShowModal] = useState(false);
     const [selectedPoint, setSelectedPoint] = useState(null);
     const [markers, setMarkers] = useState([]);
@@ -46,14 +48,14 @@ const UkraineMap = () => {
 
     const [isFiltered, setIsFiltered] = useState(false);
 
-    useEffect(() => {
-            axios.get(`${backendUrl}/getsession`, { withCredentials: true })
-                .then(result => {
-                    const userData = result.data;
-                    setUser(userData);
-                })
-                .catch(err => console.log(err));
-        }, []);
+    // useEffect(() => {
+    //         axios.get(`${backendUrl}/getsession`, { withCredentials: true })
+    //             .then(result => {
+    //                 const userData = result.data;
+    //                 setUser(userData);
+    //             })
+    //             .catch(err => console.log(err));
+    //     }, []);
         
     useEffect(() => {
         const fetchData = async () => {

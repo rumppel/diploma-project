@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container, Row, Col, Card, Button, Form, Modal } from 'react-bootstrap';
 import AlertComponent from './AlertComponent';
 import axios from 'axios';
+import { UserContext } from './UserProvider';
 
 const Profile = () => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    const [userData, setUser] = useState(null);
+    const { userData, setUser } = useContext(UserContext);
     const [isEditing, setIsEditing] = useState(false);
     const [editedData, setEditedData] = useState({});
     const [showModal, setShowModal] = useState(false);
@@ -38,7 +39,7 @@ const Profile = () => {
     const handleSubmit = (e) => {
       const errors = [];
       const usernamePattern = /^[a-zA-Z_]+$/;
-      if (editedData.city && !cityOptions.some((option) => option.name === editedData.city)) {
+      if ((userData.city != editedData.city) && !cityOptions.some((option) => option.name === editedData.city)) {
         errors.push('Please select a city from the list.');
     }
 
@@ -66,14 +67,14 @@ const Profile = () => {
             .catch(err => console.log(err));
     };
 
-    useEffect(() => {
-        axios.get(`${backendUrl}/getsession`, { withCredentials: true })
-            .then(result => {
-                const userData = result.data;
-                setUser(userData);
-            })
-            .catch(err => console.log(err));
-    }, []);
+    // useEffect(() => {
+    //     axios.get(`${backendUrl}/getsession`, { withCredentials: true })
+    //         .then(result => {
+    //             const userData = result.data;
+    //             setUser(userData);
+    //         })
+    //         .catch(err => console.log(err));
+    // }, []);
 
     const fetchCityOptions = async (inputValue) => {
       try {
