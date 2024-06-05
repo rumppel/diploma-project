@@ -68,9 +68,13 @@ $text-color: black;
     
 }
 
-// .datepicker-l {
-//     max-width: 203.4px;
-// }
+.react-datepicker{
+    left: 43px;
+}
+
+.react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range {
+    background-color: #4B65B4;
+}
 
 // .datepicker-r {
 //     margin-left: 24px;

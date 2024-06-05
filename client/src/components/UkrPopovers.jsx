@@ -76,8 +76,8 @@ const handleWeaponSelect = (categoryId) => {
             const isPostedMatch = isPostedFilter === '' || point.isPosted === (isPostedFilter === 'true');
             //const categoryMatch = category.includes(categoryFilter);
             const scheduleTypeMatch = scheduleTypeFilter === '' || point.scheduleType === scheduleTypeFilter;
-            const createdAt = new Date(point.createdAt).getTime(); // Перетворення часу створення в мілісекунди
-            const dateMatch = (!startDate || createdAt >= startDate.getTime()) && (!endDate || createdAt <= endDate.getTime());
+            const dateOfDestruction = new Date(point.dateOfDestruction).getTime(); // Перетворення часу створення в мілісекунди
+            const dateMatch = (!startDate || dateOfDestruction >= startDate.getTime()) && (!endDate || dateOfDestruction <= endDate.getTime());
             const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(category);
             const weaponMatch = selectedWeapon.length === 0 || selectedWeapon.includes(weapon);
             return searchMatch && isPostedMatch && scheduleTypeMatch && dateMatch && categoryMatch && weaponMatch;
@@ -168,6 +168,12 @@ const handleWeaponSelect = (categoryId) => {
                 endDate={endDate}
                 placeholderText="Start Date"
                 className="form-control datepicker-l"
+                showYearDropdown
+                scrollableYearDropdown
+                yearDropdownItemNumber={4} // Кількість років у випадаючому списку
+                showMonthDropdown // Додаємо можливість вибору місяця
+                isClearable
+                fixedHeight
             />
             <DatePicker
                 selected={endDate}
@@ -178,6 +184,12 @@ const handleWeaponSelect = (categoryId) => {
                 minDate={startDate}
                 placeholderText="End Date"
                 className="form-control datepicker-r"
+                showYearDropdown
+                scrollableYearDropdown
+                yearDropdownItemNumber={4} // Кількість років у випадаючому списку
+                showMonthDropdown // Додаємо можливість вибору місяця
+                isClearable
+                fixedHeight
             />
         </div>
     </Form.Group>
@@ -328,6 +340,12 @@ export const MapPopoverUser = ({ points, updateFilteredPoints, setIsFiltered }) 
                         endDate={endDate}
                         placeholderText="Start Date"
                         className="form-control datepicker-l"
+                        showYearDropdown
+                        scrollableYearDropdown
+                        yearDropdownItemNumber={4} // Кількість років у випадаючому списку
+                        showMonthDropdown // Додаємо можливість вибору місяця
+                        isClearable
+                        fixedHeight
                     />
                     <DatePicker
                         selected={endDate}
@@ -338,6 +356,12 @@ export const MapPopoverUser = ({ points, updateFilteredPoints, setIsFiltered }) 
                         minDate={startDate}
                         placeholderText="End Date"
                         className="form-control datepicker-r"
+                        showYearDropdown
+                        scrollableYearDropdown
+                        yearDropdownItemNumber={4} // Кількість років у випадаючому списку
+                        showMonthDropdown // Додаємо можливість вибору місяця
+                        isClearable
+                        fixedHeight
                     />
                 </div>
             </Form.Group>

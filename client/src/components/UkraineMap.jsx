@@ -198,7 +198,7 @@ const UkraineMap = () => {
 
             {/* <div className="map-button-container"> */}
                 {userData && userData.role === 'moderator' ? (
-                    <MapPopoverModerator points={points} updateFilteredPoints={updateFilteredPoints} setIsFiltered={setIsFiltered} /> // Використання окремого компонента Popover для модератора
+                    <MapPopoverModerator points={points} updateFilteredPoints={updateFilteredPoints} setIsFiltered={setIsFiltered}/> // Використання окремого компонента Popover для модератора
                 ) : (
                     <MapPopoverUser points={markers} updateFilteredPoints={updateFilteredPoints} setIsFiltered={setIsFiltered}/> // Використання окремого компонента Popover для користувача
                 )}

@@ -97,11 +97,11 @@ const Statistics = () => {
                         type: 'time',
                         offset: true,
                         time: {
-                            format: "DD.MM.YYYY HH:mm",
+                            format: "DD.MM.YYYY",
                             displayFormats: {
                                 'hour': 'DD.MM',
                                 'week': 'DD.MM',
-                                'month': 'DD.MM',
+                                'month': 'MM YYYY',
                                 'year': 'MMMM',
                             },
                         },
@@ -115,7 +115,7 @@ const Statistics = () => {
         });
 
         
-    }, [data, chartType, startDate, endDate]);
+    }, [data]);
 
     useEffect(() => {
         if (!pieChartRef.current || !dataPie) return;
@@ -167,7 +167,7 @@ const Statistics = () => {
                 },
             },
         });
-    }, [dataPie, chartType, startDate, endDate]);
+    }, [dataPie]);
     
     const customPalette = [
         '#42519B', // Темно-синій
