@@ -297,7 +297,7 @@ const ModeratePoints = () => {
                     <Form>
                         <Form.Group controlId="formPlacename">
                             <Form.Label>Placename</Form.Label>
-                            <Form.Control type="text" name="placename" value={editedPointData.place_name} onChange={handleEditChange} />
+                            <Form.Control type="text" name="place_name" value={editedPointData.place_name} onChange={handleEditChange} />
                         </Form.Group>
                         <Form.Group controlId="formDescription">
                             <Form.Label>Description</Form.Label>
@@ -322,11 +322,10 @@ const ModeratePoints = () => {
                         {editedPointData.scheduleType === 'custom' && (
                             <Form.Group controlId="formCustomDate">
                                 <Form.Label>Custom Date</Form.Label>
-                                <br></br><strong>{editedPointData.customScheduleDate.split('T')[0]}</strong>
                                 <Form.Control
                                     type="date"
                                     name="customScheduleDate"
-                                    value={editedPointData.customScheduleDate}
+                                    value={editedPointData.customScheduleDate.split('T')[0]}
                                     onChange={handleEditChange}
                                 />
                             </Form.Group>
@@ -334,11 +333,10 @@ const ModeratePoints = () => {
                         {editedPointData.dateOfDestruction && (
                         <Form.Group controlId="formDateOfDestruction">
                                 <Form.Label>Incident Date</Form.Label>
-                                <br></br><strong>{editedPointData.dateOfDestruction.split('T')[0]}</strong>
                                 <Form.Control
                                     type="date"
                                     name="dateOfDestruction"
-                                    value={editedPointData.dateOfDestruction}
+                                    value={editedPointData.dateOfDestruction.split('T')[0]}
                                     onChange={handleEditChange}
                                 />
                             </Form.Group>
