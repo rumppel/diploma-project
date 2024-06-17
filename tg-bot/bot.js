@@ -17,6 +17,10 @@ try {
   mongoose.connect(
     `mongodb+srv://${mongoDB_token}@labs.rtfcsa6.mongodb.net/dimploma?retryWrites=false&w=majority`,
     {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // Час очікування вибору сервера
+      socketTimeoutMS: 45000, // Час очікування сокету
     }
   );
 } catch (error) {
