@@ -57,6 +57,25 @@ mongoose.connect(
     }
 );
 
+const path = require('path');
+
+// Розташування вашого sitemap.xml файлу
+const sitemapPath = path.join(__dirname, 'public', 'sitemap.xml');
+
+// Маршрут для надсилання sitemap.xml
+app.get('/sitemap.xml', (req, res) => {
+    // Читання файлу sitemap.xml
+    fs.readFile(sitemapPath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading sitemap file:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        // Встановлення HTTP заголовків для відповіді
+        res.header('Content-Type', 'application/xml');
+        res.send(data);
+    });
+});
 
 
 let gfs;
