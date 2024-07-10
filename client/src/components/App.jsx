@@ -8,6 +8,7 @@ import Moderate from './Moderate';
 import UkraineMap from './UkraineMap';
 import Statistics from './Statistics';
 import HowToHelp from './HowToHelp';
+import Sitemap from './Sitemap';
 import {BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/map" element ={<UkraineMap/>} />
           <Route path="/statistics" element ={<Statistics/>} />
           <Route path="/howtohelp" element ={<HowToHelp/>} />
+          <Route path="/sitemap" element={<Sitemap />} />
         </Routes>
       </BrowserRouter>
     </div>
