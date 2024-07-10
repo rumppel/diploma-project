@@ -9,6 +9,7 @@ import { ModalAddPoint, ModalPointDetails } from './UkrModals';
 const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN;
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 import { UserContext } from './UserProvider';
+import { Helmet } from 'react-helmet';
 
 // Основний компонент
 const UkraineMap = () => {
@@ -186,6 +187,15 @@ const UkraineMap = () => {
 
     return (
         <div className='map-container mt-5 page-content'>
+
+            <Helmet>
+                <title>Interactive Map - Evidence of Russian Aggression - Map</title>
+                <meta name="description" content="Interactive map showing evidence of Russian aggression during the Russo-Ukrainian war." />
+                <meta name="keywords" content="Ukraine, Russia, war, aggression, map, evidence" />
+                <meta name="author" content="nocompany" />
+                <meta name="robots" content="index, follow" />
+            </Helmet>
+
             <MapGL
                 {...viewport}
                 mapboxAccessToken={mapboxToken}

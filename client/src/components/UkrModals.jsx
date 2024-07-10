@@ -6,6 +6,7 @@ import axios from 'axios';
 import AlertComponent from './AlertComponent';
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const mapboxToken = import.meta.env.VITE_MAPBOX_TOKEN;
+import { Helmet } from 'react-helmet';
 // Модальне вікно для додавання точки
 export const ModalAddPoint = ({ userData, formData, setFormData, showModal, selectedPoint, setSelectedPoint, setShowModal, setMarkerData }) => {
     const [errorMessages, setErrorMessages] = useState([]);
@@ -221,6 +222,13 @@ export const ModalPointDetails = ({ userData, markerData, showMarkerModal, setSh
 
     return (
         <Modal className='modal' show={showMarkerModal} onHide={() => setShowMarkerModal(false)} size="lg">
+            <Helmet>
+                <title>{`Details of russian agression in ${markerData ? markerData.point.city : 'unknown location'}.`}</title>
+                <meta name="description" content={`Details of point in ${markerData ? markerData.point.city : 'unknown location'}.`} />
+                <meta name="keywords" content="Ukraine, Russia, war, aggression, map, evidence, point details, evidence details" />
+                <meta name="author" content="nocompany" />
+                <meta name="robots" content="index, follow" />
+            </Helmet>
             <Modal.Header closeButton>
                 <Modal.Title>Point</Modal.Title>
             </Modal.Header>

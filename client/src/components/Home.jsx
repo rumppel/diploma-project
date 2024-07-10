@@ -4,6 +4,8 @@ import React, { useState, useEffect, useContext } from 'react'; // Додайт�
 import axios from 'axios';
 import backgroundImage from '../images/UkraineMapScreen5.png';
 import { UserContext } from './UserProvider';
+import { Helmet } from 'react-helmet';
+
 const Home = () => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const { userData, setUser } = useContext(UserContext);
@@ -38,6 +40,15 @@ const Home = () => {
   return (
     
     <div className="page-content" style={{ backgroundColor: '#f7f7f7',backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+    
+    <Helmet>
+        <title>Interactive Map - Evidence of Russian Aggression - Home Page</title>
+        <meta name="description" content="Interactive map showing evidence of Russian aggression during the Russo-Ukrainian war." />
+        <meta name="keywords" content="Ukraine, Russia, war, aggression, map, evidence" />
+        <meta name="author" content="nocompany" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+    
     <div className="container" style={{ height: '99.4vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <div className="text-center" style={{backgroundColor: 'rgba(192, 192, 192, 0.48)', padding: '15px', zIndex: '1', width: "80%", height: "60%"}}>
         <h1 className="mb-5">Interactive map with evidence of russian aggresion during the russo-Ukrainian war</h1>
