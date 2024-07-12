@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /moderate
-Disallow: /sitemap
 Sitemap: http://16.171.126.4/sitemap.xml
