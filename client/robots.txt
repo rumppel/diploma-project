@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /moderate
+Allow: https://api.mapbox.com/styles/v1/sonyalemeshova/
 Sitemap: http://16.171.126.4/sitemap.xml
